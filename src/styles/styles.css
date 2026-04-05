@@ -407,6 +407,7 @@ header {
     min-width: 40px;
     max-height: 40px;
     cursor: pointer;
+    text-align: center;
     color: #333;
     border: 1px solid #b9c2cb;
     border-radius: 3px;
@@ -501,4 +502,27 @@ header {
 
 .hidden {
     opacity: 0;
+}
+
+.title {
+    text-align: center;
+    margin: 8px;
+    font-size: 18px;
+}
+
+.timers {
+    display: flex;
+    justify-content: space-between;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.test-config-section {
+    display: flex;
+}
+
+.test-questions-block {
+    display: flex;
+    gap: 20px;
+    width: calc(100% - 240px);
 }
