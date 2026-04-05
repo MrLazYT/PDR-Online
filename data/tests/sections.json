@@ -1,0 +1,408 @@
+[
+    {
+        "section_id": 101,
+        "title": "1. Загальні положення",
+        "total": 79,
+        "correct": "77",
+        "completed": 79
+    },
+    {
+        "section_id": 102,
+        "title": "2. Обов'язки і права водіїв механічних транспортних засобів",
+        "total": 37,
+        "correct": "36",
+        "completed": 37
+    },
+    {
+        "section_id": 103,
+        "title": "3. Рух транспортних засобів із спеціальними сигналами",
+        "total": 16,
+        "correct": "12",
+        "completed": 16
+    },
+    {
+        "section_id": 104,
+        "title": "4. Обов'язки і права пішоходів",
+        "total": 26,
+        "correct": "23",
+        "completed": 26
+    },
+    {
+        "section_id": 105,
+        "title": "5. Обов'язки і права пасажирів",
+        "total": 16,
+        "correct": "16",
+        "completed": 16
+    },
+    {
+        "section_id": 106,
+        "title": "6. Вимоги до велосипедистів",
+        "total": 22,
+        "correct": "22",
+        "completed": 22
+    },
+    {
+        "section_id": 107,
+        "title": "7. Вимоги до осіб, які керують гужовим транспортом, і погоничів тварин",
+        "total": 8,
+        "correct": "8",
+        "completed": 8
+    },
+    {
+        "section_id": 108,
+        "title": "8.1. Регулювання дорожнього руху (Регульовані перехрестя)",
+        "total": 84,
+        "correct": "78",
+        "completed": 84
+    },
+    {
+        "section_id": 174,
+        "title": "8.2. Регулювання дорожнього руху (Нерегульовані перехрестя)",
+        "total": 7,
+        "correct": "7",
+        "completed": 7
+    },
+    {
+        "section_id": 109,
+        "title": "9. Попереджувальні сигнали",
+        "total": 60,
+        "correct": "59",
+        "completed": 60
+    },
+    {
+        "section_id": 110,
+        "title": "10. Початок руху та зміна його напрямку",
+        "total": 76,
+        "correct": "75",
+        "completed": 76
+    },
+    {
+        "section_id": 114,
+        "title": "11. Розташування транспортних засобів на дорозі",
+        "total": 39,
+        "correct": "35",
+        "completed": 39
+    },
+    {
+        "section_id": 115,
+        "title": "12. Швидкість руху",
+        "total": 41,
+        "correct": "39",
+        "completed": 41
+    },
+    {
+        "section_id": 116,
+        "title": "13. Дистанція, інтервал, зустрічний роз'їзд",
+        "total": 13,
+        "correct": "13",
+        "completed": 13
+    },
+    {
+        "section_id": 117,
+        "title": "14. Обгін",
+        "total": 56,
+        "correct": "53",
+        "completed": 56
+    },
+    {
+        "section_id": 118,
+        "title": "15. Зупинка і стоянка",
+        "total": 97,
+        "correct": "94",
+        "completed": 97
+    },
+    {
+        "section_id": 175,
+        "title": "16.1. Проїзд перехресть​ (Регульовані перехрестя)",
+        "total": 34,
+        "correct": "33",
+        "completed": 34
+    },
+    {
+        "section_id": 119,
+        "title": "16.2. Проїзд перехресть​ (Нерегульовані перехрестя)",
+        "total": 109,
+        "correct": "106",
+        "completed": 109
+    },
+    {
+        "section_id": 120,
+        "title": "17. Переваги маршрутних транспортних засобів",
+        "total": 11,
+        "correct": "11",
+        "completed": 11
+    },
+    {
+        "section_id": 121,
+        "title": "18. Проїзд пішохідних переходів і зупинок транспортних засобів",
+        "total": 19,
+        "correct": "19",
+        "completed": 19
+    },
+    {
+        "section_id": 122,
+        "title": "19. Користування зовнішніми світловими приладами",
+        "total": 33,
+        "correct": "32",
+        "completed": 33
+    },
+    {
+        "section_id": 123,
+        "title": "20. Рух через залізничні переїзди",
+        "total": 31,
+        "correct": "31",
+        "completed": 31
+    },
+    {
+        "section_id": 124,
+        "title": "21. Перевезення пасажирів",
+        "total": 12,
+        "correct": "12",
+        "completed": 12
+    },
+    {
+        "section_id": 125,
+        "title": "22. Перевезення вантажу",
+        "total": 6,
+        "correct": "6",
+        "completed": 6
+    },
+    {
+        "section_id": 126,
+        "title": "23. Буксирування та експлуатація транспортних составів",
+        "total": 20,
+        "correct": "20",
+        "completed": 20
+    },
+    {
+        "section_id": 127,
+        "title": "24. Навчальна їзда",
+        "total": 14,
+        "correct": "14",
+        "completed": 14
+    },
+    {
+        "section_id": 128,
+        "title": "25. Рух транспортних засобів у колонах",
+        "total": 8,
+        "correct": "8",
+        "completed": 8
+    },
+    {
+        "section_id": 129,
+        "title": "26. Рух у житловій та пішохідній зоні",
+        "total": 13,
+        "correct": "13",
+        "completed": 13
+    },
+    {
+        "section_id": 130,
+        "title": "27. Рух по автомагістралях і дорогах для автомобілів",
+        "total": 13,
+        "correct": "13",
+        "completed": 13
+    },
+    {
+        "section_id": 131,
+        "title": "28. Рух по гірських дорогах і на крутих спусках",
+        "total": 8,
+        "correct": "8",
+        "completed": 8
+    },
+    {
+        "section_id": 132,
+        "title": "29. Міжнародний рух",
+        "total": 1,
+        "correct": "1",
+        "completed": 1
+    },
+    {
+        "section_id": 133,
+        "title": "30. Номерні, розпізнавальні знаки, написи і позначення",
+        "total": 14,
+        "correct": "14",
+        "completed": 14
+    },
+    {
+        "section_id": 134,
+        "title": "31. Технічний стан транспортних засобів та їх обладнання",
+        "total": 18,
+        "correct": "17",
+        "completed": 18
+    },
+    {
+        "section_id": 135,
+        "title": "32. Окремі питання дорожнього руху, що потребують узгодження",
+        "total": 5,
+        "correct": "5",
+        "completed": 5
+    },
+    {
+        "section_id": 184,
+        "title": "33.1 Попереджувальні знаки",
+        "total": 83,
+        "correct": "79",
+        "completed": 83
+    },
+    {
+        "section_id": 185,
+        "title": "33.2 Знаки пріоритету",
+        "total": 25,
+        "correct": "25",
+        "completed": 25
+    },
+    {
+        "section_id": 186,
+        "title": "33.3 Заборонні знаки",
+        "total": 95,
+        "correct": "80",
+        "completed": 95
+    },
+    {
+        "section_id": 187,
+        "title": "33.4 Наказові знаки",
+        "total": 32,
+        "correct": "27",
+        "completed": 32
+    },
+    {
+        "section_id": 188,
+        "title": "33.5 Інформаційно-вказівні знаки",
+        "total": 91,
+        "correct": "84",
+        "completed": 91
+    },
+    {
+        "section_id": 189,
+        "title": "33.6 Знаки сервісу",
+        "total": 5,
+        "correct": "0",
+        "completed": 0
+    },
+    {
+        "section_id": 190,
+        "title": "33.7 Таблички до дорожніх знаків",
+        "total": 26,
+        "correct": "1",
+        "completed": 2
+    },
+    {
+        "section_id": 137,
+        "title": "34. Дорожня розмітка",
+        "total": 35,
+        "correct": "6",
+        "completed": 7
+    },
+    {
+        "section_id": 142,
+        "title": "35. Основи безпечного водіння",
+        "total": 171,
+        "correct": "12",
+        "completed": 13
+    },
+    {
+        "section_id": 138,
+        "title": "36. Основи права в області дорожнього руху",
+        "total": 8,
+        "correct": "6",
+        "completed": 8
+    },
+    {
+        "section_id": 139,
+        "title": "37. Надання першої медичної допомоги",
+        "total": 66,
+        "correct": "8",
+        "completed": 13
+    },
+    {
+        "section_id": 153,
+        "title": "38. Етика водіння, культура та відпочинок водія",
+        "total": 14,
+        "correct": "9",
+        "completed": 14
+    },
+    {
+        "section_id": 141,
+        "title": "39. Європротокол",
+        "total": 6,
+        "correct": "2",
+        "completed": 3
+    },
+    {
+        "section_id": 158,
+        "title": "44. Додаткові питання щодо категорій В1, В (Загальні)",
+        "total": 16,
+        "correct": "2",
+        "completed": 2
+    },
+    {
+        "section_id": 159,
+        "title": "45. Додаткові питання щодо категорій В1, В (Будова і терміни)",
+        "total": 33,
+        "correct": "3",
+        "completed": 4
+    },
+    {
+        "section_id": 160,
+        "title": "46. Додаткові питання щодо категорій В1, В (Юридична відповідальність)",
+        "total": 9,
+        "correct": "0",
+        "completed": 0
+    },
+    {
+        "section_id": 161,
+        "title": "47. Додаткові питання щодо категорій В1, В (Безпека)",
+        "total": 7,
+        "correct": "0",
+        "completed": 1
+    },
+    {
+        "section_id": 182,
+        "title": "Питання користувачів (на іспиті в Сервісному центрі не попадуться)",
+        "total": 97,
+        "correct": "0",
+        "completed": 0
+    },
+    {
+        "section_id": 194,
+        "title": "Європейські питання - 1 (на іспиті в Сервісному центрі не попадуться)",
+        "total": 100,
+        "correct": "0",
+        "completed": 0
+    },
+    {
+        "section_id": 91,
+        "title": "Європейські питання - 2 (на іспиті в Сервісному центрі не попадуться)",
+        "total": 100,
+        "correct": "0",
+        "completed": 0
+    },
+    {
+        "section_id": 196,
+        "title": "Європейські питання - 3 (на іспиті в Сервісному центрі не попадуться)",
+        "total": 97,
+        "correct": "0",
+        "completed": 0
+    },
+    {
+        "section_id": 197,
+        "title": "Європейські питання - 4 (на іспиті в Сервісному центрі не попадуться)",
+        "total": 30,
+        "correct": "0",
+        "completed": 0
+    },
+    {
+        "section_id": 92,
+        "title": "Європейські питання - 5 (на іспиті в Сервісному центрі не попадуться)",
+        "total": 235,
+        "correct": "0",
+        "completed": 0
+    },
+    {
+        "section_id": 93,
+        "title": "Європейські питання - 6 (на іспиті в Сервісному центрі не попадуться)",
+        "total": 177,
+        "correct": "0",
+        "completed": 0
+    }
+]
