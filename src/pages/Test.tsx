@@ -1,14 +1,32 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import TopMenu from "../components/TopMenu";
 import { TestService } from "../services/test.service";
 import { useParams } from "react-router-dom";
 import { QuestionService } from "../services/question.service";
+import type { TestType } from "../types/testData.type";
+import type { Question } from "../types/question.type";
+import type { AnsweredQuestion } from "../types/answeredQuestion.type";
+import type { Mistake } from "../types/mistake.type";
+import { addMistakeToLocalStorage } from "../helpers/localStorage.helper";
 
 export default function Test() {
     const { testId } = useParams();
-    const [testData, setTestData] = useState<any>();
-    const [questions, setQuestions] = useState<any[]>();
-    const [currentQuestion, setCurrentQuestion] = useState<any>();
+    const [testData, setTestData] = useState<TestType>();
+    const [questions, setQuestions] = useState<Question[]>();
+    const [currentQuestion, setCurrentQuestion] = useState<Question>();
+    const [scrollWidth, setScrollWidth] = useState<number>(100);
+    const [questionScrollPosition, setQuestionScrollPosition] = useState<number>(0);
+    const questionScrollPositionRef = useRef<number>(0);
+    const [questionsBlockScrollPosition, setQuestionsBlockScrollPosition] = useState<number>(0);
+    const questionsBlockScrollPositionRef = useRef<number>(0);
+    const isScrollDragging = useRef<boolean>(false);
+    const isScrollBlockDragging = useRef<boolean>(false);
+    const startX = useRef(0);
+    const startXBlock = useRef(0);
+    const [isPDDSectionOpened, setIsPDDSectionOpened] = useState<boolean>(false);
+    const [isExpertCommentOpened, setIsExpertCommentOpened] = useState<boolean>(false);
+    const [isVideoSectionOpened, setIsVideoSectionOpened] = useState<boolean>(false);
+    const [answeredQuestions, setAnsweredQuestions] = useState<AnsweredQuestion[]>([]);
 
     useEffect(() => {
         async function getTestData() {
@@ -26,18 +44,315 @@ export default function Test() {
 
         getTestData();
         getQuestionData();
-    }, [])
+    }, []);
+
+    useEffect(() => {
+        const scrollbar = document.getElementById("scrollbar");
+        const scrollBlock = document.getElementById("test-questions-scroll-block");
+
+        if (!scrollbar || !scrollBlock || questions?.length == 0) return;
+
+        const scrollbarWidth = scrollbar.offsetWidth;
+        const scrollBlockWidth = scrollBlock.scrollWidth;
+        const scrollBlockVisibleWidth = scrollBlock.clientWidth;
+        const division = scrollBlockWidth / scrollBlockVisibleWidth;
+        const scrollWidth = (100 / scrollbarWidth) * (scrollbarWidth / division);
+
+        setScrollWidth(scrollWidth);
+    }, [questions]);
 
     function selectQuestion(questionId: number) {
-        const question = questions?.find(question => question.id == questionId)
+        const question = questions?.find((question) => question.id == questionId);
 
         setCurrentQuestion(question);
+    }
+
+    function scrollToStart() {
+        questionScrollPositionRef.current = 0;
+        questionsBlockScrollPositionRef.current = 0;
+
+        setQuestionScrollPosition(0);
+        setQuestionsBlockScrollPosition(0);
+    }
+
+    useEffect(() => {
+        const scrollbar = document.getElementById("scrollbar");
+        const scroll = document.getElementById("scroll");
+        const scrollBlock = document.getElementById("test-questions-scroll-block");
+
+        if (!scrollbar || !scroll || !scrollBlock) return;
+
+        const onMouseDown = (e: MouseEvent) => {
+            isScrollDragging.current = true;
+            startX.current = e.clientX;
+            scroll.style.transition = `none`;
+            scrollBlock.style.transition = `none`;
+        };
+
+        const onMouseMove = (e: MouseEvent) => {
+            if (!isScrollDragging.current) return;
+
+            const delta = e.clientX - startX.current;
+            startX.current = e.clientX;
+
+            const scrollbarWidth = scrollbar.offsetWidth;
+            const scrollWidth = scroll.offsetWidth;
+
+            const maxScrollPosition = scrollbarWidth - scrollWidth;
+            const maxBlockScroll = scrollBlock.scrollWidth - scrollBlock.offsetWidth;
+
+            const ratio = maxBlockScroll / maxScrollPosition;
+
+            let currentPosition = questionScrollPositionRef.current + delta;
+            let currentScrollPosition = currentPosition * ratio * -1;
+
+            if (currentPosition < 0) {
+                currentPosition = 0;
+            }
+
+            if (currentPosition + scrollWidth > scrollbarWidth) {
+                currentPosition = scrollbarWidth - scrollWidth;
+                currentScrollPosition = -1 * maxBlockScroll;
+            }
+
+            if (currentPosition == 0) {
+                currentScrollPosition = 0;
+            }
+
+            if (currentScrollPosition > maxBlockScroll) {
+                currentScrollPosition = maxBlockScroll;
+            }
+
+            questionScrollPositionRef.current = currentPosition;
+            questionsBlockScrollPositionRef.current = currentScrollPosition;
+            scroll.style.transform = `translateX(${currentPosition}px)`;
+            scrollBlock.style.transform = `translateX(${currentScrollPosition}px)`;
+            scrollBlock.style.transform = `translateX(${currentScrollPosition}px)`;
+        };
+
+        const onMouseUp = () => {
+            if (!isScrollDragging.current) return;
+            isScrollDragging.current = false;
+            setQuestionScrollPosition(questionScrollPositionRef.current);
+            setQuestionsBlockScrollPosition(questionsBlockScrollPositionRef.current);
+            scroll.style.transition = "";
+            scrollBlock.style.transition = "";
+        };
+
+        scroll.addEventListener("mousedown", onMouseDown);
+        window.addEventListener("mousemove", onMouseMove);
+        window.addEventListener("mouseup", onMouseUp);
+
+        return () => {
+            scroll.removeEventListener("mousedown", onMouseDown);
+            window.removeEventListener("mousemove", onMouseMove);
+            window.removeEventListener("mouseup", onMouseUp);
+        };
+    }, []);
+
+    useEffect(() => {
+        const scrollbar = document.getElementById("scrollbar");
+        const scroll = document.getElementById("scroll");
+        const scrollBlock = document.getElementById("test-questions-scroll-block");
+
+        if (!scrollbar || !scroll || !scrollBlock) return;
+
+        const onMouseDown = (e: MouseEvent) => {
+            isScrollBlockDragging.current = true;
+            startXBlock.current = e.clientX;
+            scroll.style.transition = "none";
+            scrollBlock.style.transition = "none";
+        };
+
+        const onMouseMove = (e: MouseEvent) => {
+            if (!isScrollBlockDragging.current) return;
+
+            const delta = e.clientX - startXBlock.current;
+
+            const scrollbarWidth = scrollbar.offsetWidth;
+            const scrollWidth = scroll.offsetWidth;
+
+            const maxScrollPosition = scrollbarWidth - scrollWidth;
+            const maxScrollBlock = scrollBlock.scrollWidth - scrollBlock.offsetWidth;
+
+            const ratio = maxScrollBlock / maxScrollPosition;
+
+            let currentScrollPosition = questionsBlockScrollPositionRef.current + delta;
+            let currentPosition = (currentScrollPosition / ratio) * -1;
+
+            if (currentPosition < 0) {
+                currentPosition = 0;
+                currentScrollPosition = 0;
+            }
+
+            if (currentPosition > maxScrollPosition) {
+                currentPosition = maxScrollPosition;
+                currentScrollPosition = -1 * maxScrollBlock;
+            }
+
+            questionScrollPositionRef.current = currentPosition;
+            questionsBlockScrollPositionRef.current = currentScrollPosition;
+
+            scroll.style.transform = `translateX(${currentPosition}px)`;
+            scrollBlock.style.transform = `translateX(${currentScrollPosition}px)`;
+
+            startXBlock.current = e.clientX;
+        };
+
+        const onMouseUp = () => {
+            isScrollBlockDragging.current = false;
+            setQuestionScrollPosition(questionScrollPositionRef.current);
+            setQuestionsBlockScrollPosition(questionsBlockScrollPositionRef.current);
+            scroll.style.transition = "";
+            scrollBlock.style.transition = "";
+        };
+
+        scrollBlock.addEventListener("mousedown", onMouseDown);
+        window.addEventListener("mousemove", onMouseMove);
+        window.addEventListener("mouseup", onMouseUp);
+
+        return () => {
+            scrollBlock.removeEventListener("mousedown", onMouseDown);
+            window.removeEventListener("mousemove", onMouseMove);
+            window.removeEventListener("mouseup", onMouseUp);
+        };
+    }, []);
+
+    function scrollToEnd() {
+        const scrollbar = document.getElementById("scrollbar");
+        const scroll = document.getElementById("scroll");
+        const questionsBlock = document.getElementById("test-questions-block");
+        const questionsScrollBlock = document.getElementById("test-questions-scroll-block");
+
+        if (!scrollbar || !scroll || !questionsScrollBlock || !questionsBlock) return;
+
+        const scrollbarWidth = scrollbar.offsetWidth;
+        const scrollWidth = scroll.offsetWidth;
+        const newScrollPosition = scrollbarWidth - scrollWidth;
+
+        const questionsBlockWidth = questionsBlock.offsetWidth;
+        const questionsScrollBlockWidth = questionsScrollBlock.scrollWidth;
+        const newQuestionsBlockScrollPosition = (questionsScrollBlockWidth - questionsBlockWidth) * -1;
+
+        questionScrollPositionRef.current = newScrollPosition;
+        questionsBlockScrollPositionRef.current = newQuestionsBlockScrollPosition;
+
+        setQuestionScrollPosition(newScrollPosition);
+        setQuestionsBlockScrollPosition(newQuestionsBlockScrollPosition);
+    }
+
+    function scrollForward() {
+        const scrollbar = document.getElementById("scrollbar");
+        const scroll = document.getElementById("scroll");
+        const scrollBlock = document.getElementById("test-questions-scroll-block");
+
+        if (!scrollbar || !scroll || !scrollBlock) return;
+
+        const maxScrollbarWidth = scrollbar.offsetWidth - scroll.offsetWidth;
+        const maxScrollBlockWidth = scrollBlock.scrollWidth - scrollBlock.offsetWidth;
+
+        const ratio = maxScrollBlockWidth / maxScrollbarWidth;
+
+        let newScrollPosition = questionScrollPositionRef.current + scroll.offsetWidth;
+        let newQuestionsBlockScrollPosition = newScrollPosition * ratio * -1;
+
+        if (newScrollPosition > maxScrollbarWidth) {
+            newScrollPosition = maxScrollbarWidth;
+            newQuestionsBlockScrollPosition = -1 * maxScrollBlockWidth;
+        }
+
+        questionScrollPositionRef.current = newScrollPosition;
+        questionsBlockScrollPositionRef.current = newQuestionsBlockScrollPosition;
+
+        scroll.style.transform = `translateX(${newScrollPosition}px)`;
+        scrollBlock.style.transform = `translateX(${newQuestionsBlockScrollPosition}px)`;
+
+        setQuestionScrollPosition(newScrollPosition);
+        setQuestionsBlockScrollPosition(newQuestionsBlockScrollPosition);
+    }
+
+    function scrollBackward() {
+        const scrollbar = document.getElementById("scrollbar");
+        const scroll = document.getElementById("scroll");
+        const scrollBlock = document.getElementById("test-questions-scroll-block");
+
+        if (!scrollbar || !scroll || !scrollBlock) return;
+
+        const maxScrollbarWidth = scrollbar.offsetWidth - scroll.offsetWidth;
+        const maxScrollBlockWidth = scrollBlock.scrollWidth - scrollBlock.offsetWidth;
+
+        const ratio = maxScrollBlockWidth / maxScrollbarWidth;
+
+        let newQuestionsBlockScrollPosition = questionsBlockScrollPositionRef.current + scroll.offsetWidth * ratio;
+        let newScrollPosition = (newQuestionsBlockScrollPosition / ratio) * -1;
+
+        if (newScrollPosition < 0) {
+            newScrollPosition = 0;
+            newQuestionsBlockScrollPosition = 0;
+        }
+
+        if (newScrollPosition > maxScrollbarWidth) {
+            newScrollPosition = maxScrollBlockWidth;
+            newQuestionsBlockScrollPosition = maxScrollBlockWidth;
+        }
+
+        questionScrollPositionRef.current = newScrollPosition;
+        questionsBlockScrollPositionRef.current = newQuestionsBlockScrollPosition;
+
+        scroll.style.transform = `translateX(${newScrollPosition}px)`;
+        scrollBlock.style.transform = `translateX(${newQuestionsBlockScrollPosition}px)`;
+
+        setQuestionScrollPosition(newScrollPosition);
+        setQuestionsBlockScrollPosition(newQuestionsBlockScrollPosition);
+    }
+
+    function openPDDSection() {
+        setIsPDDSectionOpened(!isPDDSectionOpened);
+    }
+
+    function openExpertComment() {
+        setIsExpertCommentOpened(!isExpertCommentOpened);
+    }
+
+    function openVideoSection() {
+        setIsVideoSectionOpened(!isVideoSectionOpened);
+    }
+
+    function answerQuestion(answerId: string) {
+        const isRight: boolean = currentQuestion?.rightAnswerId == answerId;
+        const answeredQuestion: AnsweredQuestion = {
+            id: currentQuestion?.id!,
+            section_id: testId!,
+            answered_id: answerId,
+            isRight: isRight,
+        };
+
+        setAnsweredQuestions([...answeredQuestions, answeredQuestion]);
+
+        if (!isRight) {
+            const mistake: Mistake = {
+                question_id: currentQuestion?.id!,
+                section_id: testId!,
+            };
+
+            addMistakeToLocalStorage(mistake);
+        }
+
+        goToNextQuestion();
+    }
+
+    function goToNextQuestion() {
+        const currentQuestionIndex = questions?.findIndex((question) => question.id == currentQuestion?.id);
+
+        if (currentQuestionIndex! + 1 < questions!.length) {
+            setCurrentQuestion(questions![currentQuestionIndex! + 1]);
+        }
     }
 
     return (
         <div>
             <TopMenu />
-            
+
             <div className="container">
                 <div className="test-sections">
                     <p className="title">{testData?.title}</p>
@@ -53,43 +368,144 @@ export default function Test() {
                         </div>
                     </div>
 
+                    <div id="scrollbar" className="scrollbar">
+                        <div
+                            id="scroll"
+                            className="scroll"
+                            style={{
+                                width: `${scrollWidth}%`,
+                                transform: `translateX(${questionScrollPosition}px)`,
+                            }}
+                        ></div>
+                    </div>
+
                     <div className="test-config-section">
-                        <div className="test-questions-block">
-                            {questions?.map((_, index) => (
-                                <div key={_.id} className="btn question-btn" onClick={() => selectQuestion(_.id)}>
-                                    {index + 1}
+                        <div className="scroll-section">
+                            <div className="scroll-btn-block">
+                                <button className="btn btn-question" onClick={scrollToStart}>
+                                    {"<<"}
+                                </button>
+
+                                <button className="btn btn-question" onClick={scrollBackward}>
+                                    {"<"}
+                                </button>
+                            </div>
+
+                            <div id="test-questions-block" className="test-questions-scroll-block">
+                                <div
+                                    id="test-questions-scroll-block"
+                                    className="test-questions-block"
+                                    style={{ transform: `translateX(${questionsBlockScrollPosition}px)` }}
+                                >
+                                    {questions?.map((question, index) => (
+                                        <button
+                                            key={question.id}
+                                            className={`btn btn-question ${answeredQuestions.find((cur_question) => cur_question.id == question.id)?.isRight == true ? "btn-question-right" : answeredQuestions.find((cur_question) => cur_question.id == question.id)?.isRight == false ? "btn-question-wrong" : ""} ${question.id == currentQuestion?.id ? "selected" : ""}`}
+                                            onClick={() => selectQuestion(question.id)}
+                                        >
+                                            {index + 1}
+                                        </button>
+                                    ))}
                                 </div>
-                            ))}
+                            </div>
+
+                            <div className="scroll-btn-block">
+                                <button className="btn btn-question" onClick={scrollForward}>
+                                    {">"}
+                                </button>
+
+                                <button className="btn btn-question" onClick={scrollToEnd}>
+                                    {">>"}
+                                </button>
+                            </div>
                         </div>
 
                         <div className="test-config">
-                            <button className="circle-btn btn-pause"></button>
+                            <button className="circle-btn btn-pause">
+                                <div className="pause-icon">
+                                    <i></i>
+                                    <i></i>
+                                </div>
+                            </button>
                             <button className="circle-btn btn-reset"></button>
                         </div>
                     </div>
 
                     <div className="question-block">
-                        <h2 className="question">
-                            {currentQuestion?.text}
-                        </h2>
+                        <h2 className="question-title">{currentQuestion?.text}</h2>
 
                         <div className="question-info">
                             <div className="btn-block-ver">
                                 {currentQuestion?.answers.map((answer: any) => (
-                                    <div key={answer.id} className="btn btn-question">
+                                    <button
+                                        key={answer.id}
+                                        className={`btn btn-answer ${answeredQuestions.find((cur_question) => cur_question.id == currentQuestion.id) && currentQuestion.rightAnswerId == answer.id ? "btn-question-right" : answeredQuestions.find((cur_question) => cur_question.id == currentQuestion.id)?.answered_id == answer.id && answeredQuestions.find((cur_question) => cur_question.id == currentQuestion.id)?.isRight == false ? "btn-question-wrong" : ""}`}
+                                        onClick={() => answerQuestion(answer.id)}
+                                        disabled={
+                                            answeredQuestions.find(
+                                                (cur_question) => cur_question.id == currentQuestion.id,
+                                            )
+                                                ? true
+                                                : false
+                                        }
+                                    >
                                         {answer?.text}
-                                    </div>
+                                    </button>
                                 ))}
                             </div>
-                            <img className="image" src={currentQuestion?.image}></img>
+
+                            <img
+                                className="image"
+                                src={currentQuestion?.image ? currentQuestion?.image : "../src/assets/no_image_uk.png"}
+                            ></img>
                         </div>
                     </div>
 
                     <div className="help-block">
-                        <div className="slider">
-                            <div className="slider-title">Допомога Експерта</div>
-                            <span className="slider-content">{currentQuestion?.expert_comment}</span>
+                        <div className="help-slider" onClick={openPDDSection}>
+                            <div className="help-slider-title">Пункти ПДР</div>
+                            <div
+                                className={`help-slider-content ${isPDDSectionOpened ? "" : "collapsed"}`}
+                                dangerouslySetInnerHTML={{
+                                    __html:
+                                        new DOMParser().parseFromString(currentQuestion?.pdd_section ?? "", "text/html")
+                                            .documentElement.textContent ?? "",
+                                }}
+                            />
                         </div>
+
+                        {currentQuestion?.expert_comment ? (
+                            <div className="help-slider" onClick={openExpertComment}>
+                                <div className="help-slider-title">Допомога Експерта</div>
+                                <div
+                                    className={`help-slider-content ${isExpertCommentOpened ? "" : "collapsed"}`}
+                                    dangerouslySetInnerHTML={{
+                                        __html:
+                                            new DOMParser().parseFromString(
+                                                currentQuestion?.expert_comment ?? "",
+                                                "text/html",
+                                            ).documentElement.textContent ?? "",
+                                    }}
+                                />
+                            </div>
+                        ) : (
+                            ""
+                        )}
+
+                        {currentQuestion?.video ? (
+                            <div className="help-slider" onClick={openVideoSection}>
+                                <div className="help-slider-title">Відеопідказка</div>
+                                <div className={`help-slider-content ${isVideoSectionOpened ? "" : "collapsed"}`}>
+                                    <iframe
+                                        className="iframe-video"
+                                        src={`https://www.youtube.com/embed/${currentQuestion?.video}?mute=1&enablejsap=1`}
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; enablejsap;"
+                                    />
+                                </div>
+                            </div>
+                        ) : (
+                            ""
+                        )}
                     </div>
                 </div>
             </div>

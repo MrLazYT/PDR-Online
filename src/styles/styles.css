@@ -495,9 +495,9 @@ header {
 }
 
 .collapsed {
-    max-height: 0;
-    padding-top: 0;
-    padding-bottom: 0;
+    max-height: 0 !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
 }
 
 .hidden {
@@ -519,10 +519,233 @@ header {
 
 .test-config-section {
     display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.scroll-section {
+    display: flex;
+    width: calc(100% - 240px);
+}
+
+.scrollbar {
+    width: calc(100% - 240px);
+    height: 2px;
+    margin: 10px 0px 10px 0px;
+    background: #d2d7e2;
+    line-height: 0;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.scroll {
+    height: 100%;
+    background: #83899a;
+    cursor: pointer;
+    transition: transform 0.2s ease-out;
+}
+
+.scroll-btn-block {
+    position: relative;
+    display: flex;
+    gap: 12px;
+    z-index: 2;
+}
+
+.test-questions-scroll-block {
+    overflow: hidden;
+    margin-left: 12px;
+    margin-right: 12px;
 }
 
 .test-questions-block {
     display: flex;
-    gap: 20px;
-    width: calc(100% - 240px);
+    gap: 12px;
+    transition: transform 0.2s ease-out;
+}
+
+.btn-question {
+    position: relative;
+    width: 52px;
+    padding: 6px 0;
+    color: #333;
+    border: 1px solid #b9c1cc;
+    border-radius: 10px;
+    background-color: #f3f7fa;
+}
+
+.btn-question:hover {
+    background-color: #fff;
+}
+
+.btn-question.selected {
+    border: 2px solid #333 !important;
+    background: #fff;
+}
+
+.btn-question-wrong,
+.btn-answer-wrong {
+    border: 1px solid #e4615d;
+    background-color: #e4615d !important;
+    color: #fff !important;
+}
+
+.btn-question-right,
+.btn-answer-right {
+    border: 1px solid #6cdb9b !important;
+    background-color: #6cdb9b !important;
+    color: #fff !important;
+}
+
+.test-config {
+    display: flex;
+    gap: 33px;
+}
+
+.circle-btn {
+    position: relative;
+    width: 41px;
+    height: 41px;
+    border-radius: 50%;
+    border: 1px solid #a6a6a6;
+    background-color: #f4f7fa;
+    cursor: pointer;
+}
+
+.circle-btn:hover {
+    border: 1px solid #828282;
+    background-color: #f7f7f7;
+}
+
+.pause-icon {
+    display: flex;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    gap: 6px;
+}
+
+.pause-icon i {
+    width: 4px;
+    height: 20px;
+    background-color: #a6a6a6;
+}
+
+.btn-reset::before {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 35px;
+    height: 33px;
+    background: url("../assets/reset_btn.svg") 0 0 no-repeat;
+    background-size: 32px 32.5px;
+}
+
+.question-title {
+    font-size: 22px;
+    margin-top: 22px;
+    margin-bottom: 26px;
+}
+
+.question-info {
+    display: flex;
+    margin-bottom: 50px;
+    gap: 33px;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
+.btn-block-ver {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.btn-answer {
+    max-height: 100%;
+    margin: 0;
+    padding: 10px 20px;
+    font-size: 16px;
+    text-align: start;
+    background-color: #fff;
+    border-radius: 10px;
+}
+
+.btn-answer:hover {
+    background-color: #f4f7fa;
+}
+
+.btn-answer:disabled {
+    max-height: 100%;
+    margin: 0;
+    padding: 10px 20px;
+    font-size: 16px;
+    text-align: start;
+    background-color: #fff;
+    border-radius: 10px;
+}
+
+.image {
+    width: 70%;
+    height: auto;
+    border: 1px solid #bec1cc;
+    border-radius: 5px;
+}
+
+.help-block {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    margin: 10px 0;
+    gap: 24px;
+    flex-wrap: wrap;
+}
+
+.help-slider {
+    flex-basis: calc(50% - 12px);
+    width: 100%;
+    height: auto;
+    padding: 10px 15px !important;
+    border: 1px solid #cfcfcf;
+    border-radius: 10px;
+    background-color: #f3f7fa;
+    cursor: pointer;
+}
+
+.help-block:has(.help-slider:only-child) .help-slider {
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-basis: 100%;
+}
+
+.help-slider-content {
+    padding-top: 10px;
+    max-height: 1000px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.help-slider-content p {
+    margin-bottom: 10px;
+}
+
+.help-slider-content a {
+    color: #333;
+}
+
+.help-slider-content a:hover {
+    color: gray;
+}
+
+.iframe-video {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16/9;
+    border: none;
+    border-radius: 7px;
 }

@@ -2,7 +2,7 @@ export default function Header() {
     return (
         <header className="header">
             <a href="#" className="logo-link">
-                <img src="../src/assets/logo.svg" className="logo" alt="logo" />
+                <img src="../src/assets/logo.png" className="logo" alt="logo" />
             </a>
 
             <div className="user-info">
@@ -22,13 +22,6 @@ export default function Header() {
                     <p className="category-type">B</p>
                     <span className="description">Категорія посвідчення, за якою Ви проходите навчання</span>
                 </div>
-
-                {/* <div>
-                    <select className="lang-switch">
-                        <option value="ukrainian">UA</option>
-                        <option value="english">EN</option>
-                    </select>
-                </div> */}
 
                 <div className="account">
                     <a href="#" className="account-link">

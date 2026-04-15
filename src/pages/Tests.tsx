@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import TopMenu from "../components/TopMenu";
 import { Link, useNavigate } from "react-router-dom";
+import type { TestType } from "../types/testData.type";
 
 export default function Tests() {
-    const [testSections, setTestSections] = useState<any[]>([]);
+    const [testSections, setTestSections] = useState<TestType[]>([]);
     const [extendedTestId, setExtendedTestId] = useState<number>(0);
     const navigate = useNavigate();
 
@@ -32,16 +33,18 @@ export default function Tests() {
 
             <div className="container">
                 <div className="test-sections">
-                    {testSections.map((section: any) => (
+                    {testSections.map((section: TestType) => (
                         <div key={section.section_id} className="test-section">
                             <div className="test-info-block" onClick={() => extendTest(section.section_id)}>
                                 <div
-                                    className={`test-progress-block ${extendedTestId == section.section_id ? "hidden" : ""}`}
+                                    className={`test-progress-block ${extendedTestId == section.section_id ? "hidden" : `${section.section_id}`}`}
                                     style={{
                                         width: `${
-                                            isNaN((100 / section.total) * section.correct)
+                                            isNaN((100 / parseInt(section.total)) * parseInt(section.correct))
                                                 ? 0
-                                                : Math.round((100 / section.total) * section.correct)
+                                                : Math.round(
+                                                      (100 / parseInt(section.total)) * parseInt(section.correct),
+                                                  )
                                         }%`,
                                     }}
                                 ></div>
@@ -51,9 +54,9 @@ export default function Tests() {
                                     <p
                                         className={`test-progress-text ${extendedTestId == section.section_id ? "hidden" : ""}`}
                                     >
-                                        {isNaN((100 / section.total) * section.correct)
+                                        {isNaN((100 / parseInt(section.total)) * parseInt(section.correct))
                                             ? 0
-                                            : Math.round((100 / section.total) * section.correct)}
+                                            : Math.round((100 / parseInt(section.total)) * parseInt(section.correct))}
                                         %
                                     </p>
                                 </div>
@@ -69,14 +72,19 @@ export default function Tests() {
                                     </p>
                                     <p>
                                         Не пройдено запитань:{" "}
-                                        <span className="bold">{section.total - section.completed}</span>
+                                        <span className="bold">
+                                            {parseInt(section.total) - parseInt(section.completed)}
+                                        </span>
                                     </p>
                                     <p>
                                         Правильні відповіді: <span className="bold">{section.correct}</span>
                                     </p>
                                     <p>
                                         Неправильні відповіді:{" "}
-                                        <span className="bold">{section.completed - section.correct}</span> (
+                                        <span className="bold">
+                                            {parseInt(section.completed) - parseInt(section.correct)}
+                                        </span>{" "}
+                                        (
                                         <Link to="/mistakes" className="link underline">
                                             Робота над помилками
                                         </Link>
@@ -85,9 +93,11 @@ export default function Tests() {
                                     <p>
                                         Прогрес за темою:{" "}
                                         <span>
-                                            {isNaN((100 / section.total) * section.correct)
+                                            {isNaN((100 / parseInt(section.total)) * parseInt(section.correct))
                                                 ? 0
-                                                : Math.round((100 / section.total) * section.correct)}
+                                                : Math.round(
+                                                      (100 / parseInt(section.total)) * parseInt(section.correct),
+                                                  )}
                                             %
                                         </span>
                                     </p>
