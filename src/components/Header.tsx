@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import { BASE } from "../helpers/base.helper";
 import logo from "/src/assets/logo.png";
 import avatar from "/src/assets/avatar.webp";
 
