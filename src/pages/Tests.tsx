@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import TopMenu from "../components/TopMenu";
 import { Link, useNavigate } from "react-router-dom";
 import type { TestType } from "../types/testData.type";
+import { getSectionProgresses, setSectionProgress } from "../helpers/localStorage.helper";
 
 export default function Tests() {
     const [testSections, setTestSections] = useState<TestType[]>([]);
@@ -10,10 +11,17 @@ export default function Tests() {
 
     useEffect(() => {
         async function fetchTestSections() {
-            const response = await fetch("../data/tests/sections.json");
-            const data = await response.json();
+            const sections = getSectionProgresses();
 
-            setTestSections([...data]);
+            if (sections.length == 0) {
+                const response = await fetch("../data/tests/sections.json");
+                const data: TestType[] = await response.json();
+                setSectionProgress(data);
+
+                setTestSections([...data]);
+            } else {
+                setTestSections([...sections]);
+            }
         }
 
         fetchTestSections();

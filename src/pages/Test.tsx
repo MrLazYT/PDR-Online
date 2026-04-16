@@ -1,13 +1,12 @@
 import { useEffect, useRef, useState } from "react";
 import TopMenu from "../components/TopMenu";
-import { TestService } from "../services/test.service";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { QuestionService } from "../services/question.service";
 import type { TestType } from "../types/testData.type";
 import type { Question } from "../types/question.type";
 import type { AnsweredQuestion } from "../types/answeredQuestion.type";
 import type { Mistake } from "../types/mistake.type";
-import { addMistakeToLocalStorage } from "../helpers/localStorage.helper";
+import { addMistakeToLocalStorage, getSectionProgress, updateSectionProgress } from "../helpers/localStorage.helper";
 
 export default function Test() {
     const { testId } = useParams();
@@ -27,19 +26,58 @@ export default function Test() {
     const [isExpertCommentOpened, setIsExpertCommentOpened] = useState<boolean>(false);
     const [isVideoSectionOpened, setIsVideoSectionOpened] = useState<boolean>(false);
     const [answeredQuestions, setAnsweredQuestions] = useState<AnsweredQuestion[]>([]);
+    const [testTimer, setTestTimer] = useState<number>(0);
+    const [questionTimers, setQuestionTimers] = useState<number[]>([]);
+    const [currentQuestionTimer, setCurrentQuestionTimer] = useState<number>(0);
+    const [isFinished, setIsFinished] = useState<boolean>(false);
+    const [isFinishedDialogShown, setIsFinishedDialogShown] = useState<boolean>(false);
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        const startTimer = () => {
+            if (!isFinished) {
+                setTestTimer((prevTime) => prevTime + 1);
+            }
+        };
+
+        let interval = setInterval(startTimer, 1000);
+
+        return () => clearInterval(interval);
+    }, [isFinished]);
+
+    useEffect(() => {
+        const startTimer = () => {
+            const isQuestionAnswered = answeredQuestions.find(
+                (answeredQuestion) => answeredQuestion.id == currentQuestion!.id,
+            )
+                ? true
+                : false;
+
+            if (!isQuestionAnswered) {
+                setCurrentQuestionTimer((prevTime) => prevTime + 1);
+            }
+        };
+
+        let interval = setInterval(startTimer, 1000);
+
+        return () => clearInterval(interval);
+    }, [answeredQuestions, currentQuestion]);
 
     useEffect(() => {
         async function getTestData() {
-            const data = await TestService.getTest(parseInt(testId!));
+            const data = await getSectionProgress(parseInt(testId!));
 
             setTestData(data);
         }
 
         async function getQuestionData() {
             const data = await QuestionService.getAllQuestions(parseInt(testId!));
+            const timers = new Array<number>(data.length).fill(0);
 
-            setQuestions([...data]);
+            setQuestions(data);
+            setQuestionTimers(timers);
             setCurrentQuestion(data[0]);
+            setCurrentQuestionTimer(timers[0]);
         }
 
         getTestData();
@@ -63,8 +101,14 @@ export default function Test() {
 
     function selectQuestion(questionId: number) {
         const question = questions?.find((question) => question.id == questionId);
+        const questionIndex = questions?.indexOf(question!);
+        const currentQuestionIndex = questions?.indexOf(currentQuestion!);
+
+        questionTimers[currentQuestionIndex!] = currentQuestionTimer;
 
         setCurrentQuestion(question);
+        setQuestionTimers(questionTimers);
+        setCurrentQuestionTimer(questionTimers[questionIndex!]);
     }
 
     function scrollToStart() {
@@ -327,7 +371,30 @@ export default function Test() {
             isRight: isRight,
         };
 
-        setAnsweredQuestions([...answeredQuestions, answeredQuestion]);
+        setAnsweredQuestions((prev) => {
+            const updated = [...prev, answeredQuestion];
+
+            if (updated.length === questions?.length) {
+                setIsFinished(true);
+                setIsFinishedDialogShown(true);
+
+                const sectionProgress = getSectionProgress(parseInt(testId!));
+
+                const correctQuestions = updated.filter((question) => question.isRight == true);
+
+                const updatedProgress: TestType = {
+                    section_id: sectionProgress!.section_id,
+                    title: sectionProgress!.title,
+                    total: sectionProgress!.total,
+                    correct: "" + correctQuestions.length,
+                    completed: "" + updated.length,
+                };
+
+                updateSectionProgress(updatedProgress);
+            }
+
+            return updated;
+        });
 
         if (!isRight) {
             const mistake: Mistake = {
@@ -345,8 +412,22 @@ export default function Test() {
         const currentQuestionIndex = questions?.findIndex((question) => question.id == currentQuestion?.id);
 
         if (currentQuestionIndex! + 1 < questions!.length) {
+            const currentQuestionIndex = questions?.indexOf(currentQuestion!);
+
+            questionTimers[currentQuestionIndex!] = currentQuestionTimer;
+
             setCurrentQuestion(questions![currentQuestionIndex! + 1]);
+            setQuestionTimers(questionTimers);
+            setCurrentQuestionTimer(questionTimers[currentQuestionIndex! + 1]);
         }
+    }
+
+    function updateFinishedDialogShownStatus() {
+        setIsFinishedDialogShown(!isFinishedDialogShown);
+    }
+
+    function goBack() {
+        navigate("/tests");
     }
 
     return (
@@ -359,12 +440,32 @@ export default function Test() {
                     <div className="timers">
                         <div className="timer">
                             <p className="timer-title">Розмірковуємо над запитанням:</p>
-                            <p className="timer-text"></p>
+                            <p className="timer-text">
+                                <span className="minutes">
+                                    {Math.floor(currentQuestionTimer / 60) < 10 ? "0" : ""}
+                                    {Math.floor(currentQuestionTimer / 60)}
+                                </span>
+                                <span className="separator"> : </span>
+                                <span className="seconds">
+                                    {currentQuestionTimer % 60 < 10 ? "0" : ""}
+                                    {currentQuestionTimer % 60}
+                                </span>
+                            </p>
                         </div>
 
-                        <div>
+                        <div className="timer">
                             <p className="timer-title">Загальний час тестування:</p>
-                            <p className="timer-text"></p>
+                            <p className="timer-text">
+                                <span className="minutes">
+                                    {Math.floor(testTimer / 60) < 10 ? "0" : ""}
+                                    {Math.floor(testTimer / 60)}
+                                </span>
+                                <span className="separator"> : </span>
+                                <span className="seconds">
+                                    {testTimer % 60 < 10 ? "0" : ""}
+                                    {testTimer % 60}
+                                </span>
+                            </p>
                         </div>
                     </div>
 
@@ -507,6 +608,24 @@ export default function Test() {
                             ""
                         )}
                     </div>
+                </div>
+
+                <div className={`dialog-container ${isFinishedDialogShown ? "" : "collapsed"}`}>
+                    <div id="dialog" className="dialog" role="dialog" aria-modal="true">
+                        <p className="dialog-title">Запитання до теми закінчилися</p>
+
+                        <div className="btn-ver-block">
+                            <div className="btn btn-dialog">До попередньої теми</div>
+                            <div className="btn btn-dialog" onClick={goBack}>
+                                Повернутися до списку тем
+                            </div>
+                            <div className="btn btn-dialog" onClick={updateFinishedDialogShownStatus}>
+                                Залишитися і проаналізувати помилки
+                            </div>
+                            <div className="btn btn-dialog">До наступної теми</div>
+                        </div>
+                    </div>
+                    <div className="backdrop" onClick={updateFinishedDialogShownStatus} />
                 </div>
             </div>
         </div>

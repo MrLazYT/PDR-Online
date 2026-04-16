@@ -1,53 +1,55 @@
+import { Link } from "react-router-dom";
+
 export default function Sidebar() {
     return (
         <div className="sidebar">
             <div className="nav-sections">
                 <div className="section books">
                     <div className="link-block">
-                        <a className="link" href="/books">
+                        <Link className="link" to="/dovidniki">
                             Довідники
-                        </a>
+                        </Link>
                     </div>
                 </div>
                 <div className="section courses">
                     <div className="link-block">
-                        <a className="link" href="/courses">
+                        <Link className="link" to="/courses">
                             Навчання теорії
-                        </a>
+                        </Link>
                     </div>
                 </div>
                 <div className="section tests">
                     <div className="link-block">
-                        <a className="link bold" href="/tests">
+                        <Link className="link bold" to="/tests">
                             Тести з ПДР
-                        </a>
+                        </Link>
                     </div>
                     <div className="section-dropdown">
-                        <a className="link" href="/tests">
+                        <Link className="link" to="/tests">
                             Запитання до теми
-                        </a>
-                        <a className="link" href="/twenty-questions">
+                        </Link>
+                        <Link className="link" to="/twenty-questions">
                             20 випадкових запитань
-                        </a>
-                        <a className="link" href="top-difficult">
+                        </Link>
+                        <Link className="link" to="top-difficult">
                             100 найпоширеніших помилок
-                        </a>
-                        <a className="link" href="/mistakes">
+                        </Link>
+                        <Link className="link" to="/mistakes">
                             Робота над помилками
-                        </a>
-                        <a className="link" href="/favourites">
+                        </Link>
+                        <Link className="link" to="/favourites">
                             Обране
-                        </a>
-                        <a className="link" href="/exam">
+                        </Link>
+                        <Link className="link" to="/exam">
                             Іспит
-                        </a>
+                        </Link>
                     </div>
                 </div>
                 <div className="section practical-courses">
                     <div className="link-block">
-                        <a className="link" href="/practical-courses">
+                        <Link className="link" to="/practical-courses">
                             Іспит з водіння
-                        </a>
+                        </Link>
                     </div>
                 </div>
             </div>

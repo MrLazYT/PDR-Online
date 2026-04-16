@@ -1,4 +1,5 @@
 import type { Mistake } from "../types/mistake.type";
+import type { TestType } from "../types/testData.type";
 
 export function getMistakes(): Mistake[] {
     const data = localStorage.getItem("mistakes");
@@ -36,4 +37,40 @@ export function removeMistake(questionId: number): void {
 
 export function removeMistakes(): void {
     localStorage.removeItem("mistakes");
+}
+
+export function getSectionProgresses(): TestType[] {
+    const data = localStorage.getItem("sections");
+
+    if (!data) {
+        return [];
+    }
+
+    const parsed: TestType[] = JSON.parse(data);
+
+    return parsed;
+}
+
+export function getSectionProgress(sectionId: number): TestType | undefined {
+    const sections = getSectionProgresses();
+
+    const section = sections.find((cur_section) => cur_section.section_id == sectionId);
+
+    return section;
+}
+
+export function setSectionProgress(sections: TestType[]): void {
+    const convertedSectionProgress: string = JSON.stringify(sections);
+
+    localStorage.setItem("sections", convertedSectionProgress);
+}
+
+export function updateSectionProgress(section: TestType): void {
+    const sections = getSectionProgresses();
+
+    const sectionIndex: number = sections.findIndex((cur_section) => cur_section.section_id == section.section_id);
+
+    sections[sectionIndex] = section;
+
+    setSectionProgress(sections);
 }

@@ -1,9 +1,11 @@
+import { Link } from "react-router-dom";
+
 export default function Header() {
     return (
         <header className="header">
-            <a href="#" className="logo-link">
-                <img src="../src/assets/logo.png" className="logo" alt="logo" />
-            </a>
+            <Link to="/" className="logo-link">
+                <img src="/src/assets/logo.png" className="logo" alt="logo" />
+            </Link>
 
             <div className="user-info">
                 <div className="pro-status">
@@ -24,34 +26,36 @@ export default function Header() {
                 </div>
 
                 <div className="account">
-                    <a href="#" className="account-link">
-                        <img src="../src/assets/avatar.webp" className="account-avatar" />
+                    <div className="account-link">
+                        <Link to="/" className="account-link">
+                            <img src="/src/assets/avatar.webp" className="account-avatar" />
+                        </Link>
 
                         <div className="account-dropdown">
-                            <p className="account-name">Гладан Денис Тарасович</p>
-                            <a className="link" href="/personal-data">
+                            <p className="account-name">Тестенко Тест Тестович</p>
+                            <Link className="link" to="/personal-data">
                                 Персональні дані
-                            </a>
-                            <a className="link" href="/statistics">
+                            </Link>
+                            <Link className="link" to="/statistics">
                                 Статистика
-                            </a>
-                            <a className="link" href="/awards">
+                            </Link>
+                            <Link className="link" to="/awards">
                                 Нагороди
-                            </a>
-                            <a className="link" href="/groups">
+                            </Link>
+                            <Link className="link" to="/groups">
                                 Моя група
-                            </a>
-                            <a className="link" href="/messages">
+                            </Link>
+                            <Link className="link" to="/messages">
                                 Повідомлення
-                            </a>
-                            <a className="link" href="/comments">
+                            </Link>
+                            <Link className="link" to="/comments">
                                 Коментарі
-                            </a>
-                            <a className="link" href="/leave">
+                            </Link>
+                            <Link className="link" to="/leave">
                                 Вихід
-                            </a>
+                            </Link>
                         </div>
-                    </a>
+                    </div>
                 </div>
             </div>
         </header>

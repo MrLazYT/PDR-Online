@@ -437,6 +437,26 @@ header {
     border-left: 10px solid #666;
 }
 
+.btn-ver-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+.btn-dialog {
+    width: 100%;
+    margin: 0;
+    box-sizing: content-box;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border: 1px solid #bdc1cd;
+    border-radius: 10px;
+    box-shadow: 0 1px 1px #bdc1cd;
+    transition: background-color 0.3s ease-out;
+}
+
 .btn-block {
     display: flex;
 }
@@ -498,6 +518,7 @@ header {
     max-height: 0 !important;
     padding-top: 0 !important;
     padding-bottom: 0 !important;
+    overflow: hidden;
 }
 
 .hidden {
@@ -515,6 +536,20 @@ header {
     justify-content: space-between;
     padding-left: 15px;
     padding-right: 15px;
+}
+
+.timer {
+    display: flex;
+    align-items: start;
+}
+
+.timer-title {
+    margin-top: 10px;
+    margin-right: 4px;
+}
+
+.timer-text {
+    font-size: 24px;
 }
 
 .test-config-section {
@@ -748,4 +783,40 @@ header {
     aspect-ratio: 16/9;
     border: none;
     border-radius: 7px;
+}
+
+.dialog-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.dialog {
+    position: absolute;
+    width: 420px;
+    top: 50%;
+    left: 50%;
+    padding: 25px;
+    border-radius: 7px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    z-index: 12;
+}
+
+.dialog-title {
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.backdrop {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 11;
 }

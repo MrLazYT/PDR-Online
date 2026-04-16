@@ -1,40 +1,42 @@
+import { Link } from "react-router-dom";
+
 export default function TopMenu() {
     return (
         <ul className="top-menu">
             <li className="menu-item">
-                <a className="link selected" href="/tests">
+                <Link className="link selected" to="/tests">
                     Запитання до теми
-                </a>
+                </Link>
             </li>
 
             <li className="menu-item">
-                <a className="link" href="/twenty-questions">
+                <Link className="link" to="/twenty-questions">
                     20 випадкових запитань
-                </a>
+                </Link>
             </li>
 
             <li className="menu-item">
-                <a className="link" href="/top-difficult">
+                <Link className="link" to="/top-difficult">
                     100 найпоширеніших помилок
-                </a>
+                </Link>
             </li>
 
             <li className="menu-item">
-                <a className="link" href="/mistakes">
+                <Link className="link" to="/mistakes">
                     Робота над помилками
-                </a>
+                </Link>
             </li>
 
             <li className="menu-item">
-                <a className="link" href="/favourites">
+                <Link className="link" to="/favourites">
                     Обране
-                </a>
+                </Link>
             </li>
 
             <li className="menu-item">
-                <a className="link" href="/exam">
+                <Link className="link" to="/exam">
                     Іспит
-                </a>
+                </Link>
             </li>
         </ul>
     );
