@@ -1,10 +1,12 @@
 import { Link } from "react-router-dom";
+import { BASE } from "../helpers/base.helper";
+import logo from "/src/assets/logo.png";
 
 export default function Header() {
     return (
         <header className="header">
             <Link to="/" className="logo-link">
-                <img src="/src/assets/logo.png" className="logo" alt="logo" />
+                <img src={logo} className="logo" alt="logo" />
             </Link>
 
             <div className="user-info">
@@ -28,7 +30,7 @@ export default function Header() {
                 <div className="account">
                     <div className="account-link">
                         <Link to="/" className="account-link">
-                            <img src="/src/assets/avatar.webp" className="account-avatar" />
+                            <img src={`${BASE}src/assets/avatar.webp`} className="account-avatar" />
                         </Link>
 
                         <div className="account-dropdown">

@@ -7,6 +7,7 @@ import type { Question } from "../types/question.type";
 import type { AnsweredQuestion } from "../types/answeredQuestion.type";
 import type { Mistake } from "../types/mistake.type";
 import { addMistakeToLocalStorage, getSectionProgress, updateSectionProgress } from "../helpers/localStorage.helper";
+import { BASE } from "../helpers/base.helper";
 
 export default function Test() {
     const { testId } = useParams();
@@ -557,7 +558,11 @@ export default function Test() {
 
                             <img
                                 className="image"
-                                src={currentQuestion?.image ? currentQuestion?.image : "../src/assets/no_image_uk.png"}
+                                src={
+                                    currentQuestion?.image
+                                        ? currentQuestion?.image
+                                        : `${BASE}src/assets/no_image_uk.png`
+                                }
                             ></img>
                         </div>
                     </div>
