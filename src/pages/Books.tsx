@@ -35,37 +35,37 @@ export default function Books() {
     const books = [
         {
             title: "ПДР 2026 України з ілюстраціями, коментарями та відео",
-            image: "/src/assets/books/books-icon-1.svg",
+            image: "/assets/books/books-icon-1.svg",
             link: "pdr",
         },
         {
             title: "Підручник з водіння автомобіля",
-            image: "/src/assets/books/books-icon-2.svg",
+            image: "/assets/books/books-icon-2.svg",
             link: "pidruchnyk-z-vodinnia",
         },
         {
             title: "Підручник з будови автомобіля",
-            image: "/src/assets/books/books-icon-3.svg",
+            image: "/assets/books/books-icon-3.svg",
             link: "pidruchnyk-po-vlashtuvanniu-avtomobilia",
         },
         {
             title: "Перша медична допомога при ДТП",
-            image: "/src/assets/books/books-icon-4.svg",
+            image: "/assets/books/books-icon-4.svg",
             link: "medychna-dopomoha",
         },
         {
             title: "Поради адвоката при ДТП",
-            image: "/src/assets/books/books-icon-5.svg",
+            image: "/assets/books/books-icon-5.svg",
             link: "vash-advokat",
         },
         {
             title: "Штрафи та інші санкції для водіїв і пішоходів (КУпАП)",
-            image: "/src/assets/books/books-icon-6.svg",
+            image: "/assets/books/books-icon-6.svg",
             link: "penalty-information",
         },
         {
             title: "Інформація про отримання посвідчення водія",
-            image: "/src/assets/books/books-icon-7.svg",
+            image: "/assets/books/books-icon-7.svg",
             link: "driving-license",
         },
     ];
