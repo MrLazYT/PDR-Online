@@ -3,11 +3,39 @@ import TopMenu from "../components/TopMenu";
 import { Link, useNavigate } from "react-router-dom";
 import type { TestType } from "../types/testData.type";
 import { getSectionProgresses, setSectionProgress } from "../helpers/localStorage.helper";
+import type { MenuItem } from "../types/menuItem";
 
 export default function Tests() {
     const [testSections, setTestSections] = useState<TestType[]>([]);
     const [extendedTestId, setExtendedTestId] = useState<number>(0);
     const navigate = useNavigate();
+
+    const topMenuItems: MenuItem[] = [
+        {
+            title: "Запитання до теми",
+            link: "/tests",
+        },
+        {
+            title: "20 випадкових запитань",
+            link: "/twenty-questions",
+        },
+        {
+            title: "100 найпоширеніших помилок",
+            link: "/top-difficult",
+        },
+        {
+            title: "Робота над помилками",
+            link: "/mistakes",
+        },
+        {
+            title: "Обране",
+            link: "/favourites",
+        },
+        {
+            title: "Іспит",
+            link: "/exam",
+        },
+    ];
 
     useEffect(() => {
         async function fetchTestSections() {
@@ -37,7 +65,7 @@ export default function Tests() {
 
     return (
         <>
-            <TopMenu />
+            <TopMenu topMenuItems={topMenuItems} selectedItem={0} />
 
             <div className="container">
                 <div className="test-sections">

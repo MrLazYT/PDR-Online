@@ -204,7 +204,7 @@ header {
     top: 71px;
     height: 100%;
     background-color: #f6f7f9;
-    transition: all 0.1s ease 0s;
+    transition: all 0.15s ease 0s;
     text-wrap: nowrap;
     z-index: 10;
     box-shadow: 2px 0 11px #0202021c;
@@ -228,6 +228,8 @@ header {
 
 .section > .link-block > .link {
     display: none;
+    position: relative;
+    overflow: hidden;
 }
 
 .section > .link-block::before {
@@ -282,7 +284,7 @@ header {
     transform: rotate(45deg) translateZ(0) translateY(-50%);
     border-style: solid;
     border-width: 1px 1px 0 0;
-    transition: all 0.5s ease 1s;
+    transition: all 0.6s ease 1s;
 }
 
 .sidebar:hover > .nav-sections > .section > .link-block > .link::after {
@@ -335,7 +337,9 @@ header {
     margin-bottom: 40px;
 }
 
-.test-sections {
+.test-sections,
+.book-sections,
+.book-content-container {
     padding-top: 70px;
     padding-left: 30px;
 }
@@ -421,6 +425,18 @@ header {
 
 .btn-start {
     width: 80px;
+}
+
+.btn-book {
+    flex-grow: 1;
+    max-height: 100%;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    font-weight: 700;
+    border-radius: 10px;
+    border: 1px solid #bbc2cc;
 }
 
 .triangle {
@@ -741,7 +757,8 @@ header {
     flex-wrap: wrap;
 }
 
-.help-slider {
+.help-slider,
+.info-pdd {
     flex-basis: calc(50% - 12px);
     width: 100%;
     height: auto;
@@ -758,22 +775,38 @@ header {
     flex-basis: 100%;
 }
 
-.help-slider-content {
+.help-slider-content,
+.comment_question {
     padding-top: 10px;
     max-height: 1000px;
     overflow: hidden;
     transition: all 0.3s ease;
 }
 
-.help-slider-content p {
-    margin-bottom: 10px;
+.comment_question {
+    padding-top: 0;
+    font-size: 14px;
 }
 
-.help-slider-content a {
+.comment_question p + p {
+    margin-top: 10px;
+}
+
+.comment_question p:empty {
+    margin-top: 0;
+}
+
+.comment_question p:only-child {
+    margin-top: 10px;
+}
+
+.help-slider-content a,
+.comment_question a {
     color: #333;
 }
 
-.help-slider-content a:hover {
+.help-slider-content a:hover,
+.comment_question a:hover {
     color: gray;
 }
 
@@ -819,4 +852,271 @@ header {
     bottom: 0;
     background-color: rgba(0, 0, 0, 0.5);
     z-index: 11;
+}
+
+.section-title {
+    margin-top: 5px;
+    margin-bottom: 45px;
+    text-align: center;
+    font-size: 24px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.books-block {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+}
+
+.book {
+    display: flex;
+    gap: 20px;
+    width: calc(50% - 15px);
+    padding: 20px;
+    background-color: #f3f7fa;
+    border-radius: 10px;
+}
+
+.book-image {
+    width: 145px;
+    height: 145px;
+}
+
+.book-info {
+    display: flex;
+    width: 100%;
+    margin-top: 15px;
+    flex-direction: column;
+    gap: 30px;
+    justify-content: space-between;
+}
+
+.book-title {
+    font-size: 22px;
+    font-weight: 700;
+}
+
+.btn-section {
+    display: flex;
+    width: 100%;
+    gap: 30px;
+}
+
+.selected-chapter-item {
+    color: #35ae2c;
+}
+
+.selected-chapter-item:hover {
+    color: #35ae2c;
+}
+
+.book-content-container {
+    display: flex;
+    margin-left: 285px;
+}
+
+.content-block {
+    position: fixed;
+    width: 255px;
+    top: 110px;
+    height: calc(100vh - 39px - 70px);
+    left: 100px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+}
+
+.content-title {
+    margin-top: 30px;
+    margin-bottom: 10px;
+    font-size: 18px;
+    font-weight: 600;
+    color: #666;
+}
+
+.content-items {
+    margin-bottom: 20px;
+}
+
+.chapter-content {
+    width: 100%;
+}
+
+.chapter-title {
+    font-size: 24px;
+    font-weight: 700;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.chapter-content .text {
+    font-size: 15px;
+}
+
+.chapter-content .text h3 {
+    margin-top: 42px;
+    margin-bottom: 42px;
+    font-size: 24px;
+    line-height: 1.1;
+}
+
+.chapter-content .text h3 strong {
+    font-weight: 700;
+}
+
+.chapter-content .text p {
+    margin-bottom: 10px;
+}
+
+.chapter-content .text a {
+    color: #333;
+}
+
+.chapter-content .text a:hover {
+    color: gray;
+}
+
+.pdd-red {
+    color: #ec008c;
+    font-weight: 700;
+    padding-right: 5px;
+}
+
+.info-text {
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    font-size: 14px;
+}
+
+.info-pdd.expert p {
+    margin-bottom: 2px;
+}
+
+.info-pdd.expert .info-text::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -1px;
+    background: url("/src/assets/expert-icon.svg") no-repeat;
+    width: 30px;
+    height: 30px;
+}
+
+.info-pdd.expert.history .info-text::before {
+    top: 2px;
+    left: 1px;
+    background: url("/src/assets/history-icon.svg") no-repeat;
+}
+
+.info-pdd-block {
+    margin-top: 15px;
+}
+
+.chapter-content .text.section-break::after,
+.info-pdd-block::after {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 1px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    background-color: #eee;
+}
+
+.chapter-content .text::after {
+    display: none;
+}
+
+.chapter-content .text .video {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: max(500px, calc(100% - 320px));
+}
+
+.chapter-content .text img {
+    margin-top: 0 !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    margin-bottom: 20px !important;
+    max-width: max(500px, calc(100% - 320px));
+}
+
+.img-pdd {
+    margin-top: 15px;
+    text-align: center;
+}
+
+.img-pdd img {
+    display: block;
+    max-width: 100%;
+    margin-bottom: 20px;
+    aspect-ratio: 1200 / 481;
+}
+
+.img-pdd a {
+    display: inline-block;
+}
+
+.img-pdd a div,
+.img-pdd div {
+    display: inline-flex;
+    position: relative;
+    width: 100px;
+    height: 100px;
+    margin-bottom: 20px;
+    padding-left: 12px;
+    padding-right: 12px;
+    vertical-align: middle;
+}
+
+.img-pdd a div img,
+.img-pdd div img {
+    margin: 0 auto;
+    max-height: 73px;
+    max-width: 100% !important;
+}
+
+.img-pdd a div span,
+.img-pdd div span {
+    position: absolute;
+    width: 76px;
+    left: 12px;
+    bottom: 4px;
+    background-color: #f3f4c4;
+    font-size: 12px;
+    font-weight: 700;
+    border-radius: 3px;
+    color: #000;
+    line-height: 17px;
+}
+
+.info-pdd-block {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.video {
+    margin-bottom: 15px;
+}
+
+.chapter-content #adv-sheme {
+    width: 100% !important;
+    font-size: 12px;
+    line-height: 16px;
+}
+
+.chapter-content #wrap {
+    position: relative;
+    width: 735px;
+    margin: 0 auto !important;
+}
+
+.chapter-content .adv-text-1 {
+    margin-top: 860px;
+}
+
+table {
+    border-collapse: collapse;
 }

@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from "react";
-import TopMenu from "../components/TopMenu";
 import { useNavigate, useParams } from "react-router-dom";
 import { QuestionService } from "../services/question.service";
 import type { TestType } from "../types/testData.type";
@@ -8,6 +7,8 @@ import type { AnsweredQuestion } from "../types/answeredQuestion.type";
 import type { Mistake } from "../types/mistake.type";
 import { addMistakeToLocalStorage, getSectionProgress, updateSectionProgress } from "../helpers/localStorage.helper";
 import noImage from "/src/assets/no_image_uk.png";
+import type { MenuItem } from "../types/menuItem";
+import TopMenu from "../components/TopMenu";
 
 export default function Test() {
     const { testId } = useParams();
@@ -33,6 +34,33 @@ export default function Test() {
     const [isFinished, setIsFinished] = useState<boolean>(false);
     const [isFinishedDialogShown, setIsFinishedDialogShown] = useState<boolean>(false);
     const navigate = useNavigate();
+
+    const topMenuItems: MenuItem[] = [
+        {
+            title: "Запитання до теми",
+            link: "/tests",
+        },
+        {
+            title: "20 випадкових запитань",
+            link: "/twenty-questions",
+        },
+        {
+            title: "100 найпоширеніших помилок",
+            link: "/top-difficult",
+        },
+        {
+            title: "Робота над помилками",
+            link: "/mistakes",
+        },
+        {
+            title: "Обране",
+            link: "/favourites",
+        },
+        {
+            title: "Іспит",
+            link: "/exam",
+        },
+    ];
 
     useEffect(() => {
         const startTimer = () => {
@@ -433,7 +461,7 @@ export default function Test() {
 
     return (
         <div>
-            <TopMenu />
+            <TopMenu topMenuItems={topMenuItems} selectedItem={0} />
 
             <div className="container">
                 <div className="test-sections">
@@ -551,7 +579,7 @@ export default function Test() {
                                                 : false
                                         }
                                     >
-                                        {answer?.text}
+                                        <span dangerouslySetInnerHTML={{ __html: answer?.text }} />
                                     </button>
                                 ))}
                             </div>

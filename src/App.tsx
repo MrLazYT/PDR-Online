@@ -4,6 +4,8 @@ import Header from "./components/Header";
 import Sidebar from "./components/Sidebar";
 import Tests from "./pages/Tests";
 import Test from "./pages/Test";
+import Books from "./pages/Books";
+import Book from "./pages/Book";
 
 function App() {
     return (
@@ -15,6 +17,9 @@ function App() {
                 <Route path="/" element={<Home />} />
                 <Route path="/tests" element={<Tests />} />
                 <Route path="/test/:testId" element={<Test />} />
+                <Route path="/dovidniki" element={<Books />} />
+                <Route path="/dovidniki/:bookType" element={<Book />} />
+                <Route path="/dovidniki/:bookType/:chapterSlug" element={<Book />} />
             </Routes>
         </>
     );
