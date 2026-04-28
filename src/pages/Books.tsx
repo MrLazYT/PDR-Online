@@ -1,74 +1,50 @@
 import { useNavigate } from "react-router-dom";
 import TopMenu from "../components/TopMenu";
 import type { MenuItem } from "../types/menuItem";
+import { useEffect, useState } from "react";
+import type Book from "../types/book.type";
+import { BookService } from "../services/book.service";
 
 export default function Books() {
     const navigate = useNavigate();
 
-    const topMenuItems: MenuItem[] = [
-        {
-            title: "ПДР",
-            link: "pdr",
-        },
-        {
-            title: "Водіння авто",
-            link: "pidruchnyk-z-vodinnia",
-        },
-        {
-            title: "Будова авто",
-            link: "pidruchnyk-po-vlashtuvanniu-avtomobilia",
-        },
-        {
-            title: "Меддопомога",
-            link: "medychna-dopomoha",
-        },
-        {
-            title: "Ваш адвокат",
-            link: "vash-advokat",
-        },
-        {
-            title: "Таблиця штрафів",
-            link: "penalty-information",
-        },
-    ];
+    const [books, setBooks] = useState<Book[]>([]);
+    const [topMenuItems, setTopMenuItems] = useState<MenuItem[]>([]);
 
-    const books = [
-        {
-            title: "ПДР 2026 України з ілюстраціями, коментарями та відео",
-            image: "/assets/books/books-icon-1.svg",
-            link: "pdr",
-        },
-        {
-            title: "Підручник з водіння автомобіля",
-            image: "/assets/books/books-icon-2.svg",
-            link: "pidruchnyk-z-vodinnia",
-        },
-        {
-            title: "Підручник з будови автомобіля",
-            image: "/assets/books/books-icon-3.svg",
-            link: "pidruchnyk-po-vlashtuvanniu-avtomobilia",
-        },
-        {
-            title: "Перша медична допомога при ДТП",
-            image: "/assets/books/books-icon-4.svg",
-            link: "medychna-dopomoha",
-        },
-        {
-            title: "Поради адвоката при ДТП",
-            image: "/assets/books/books-icon-5.svg",
-            link: "vash-advokat",
-        },
-        {
-            title: "Штрафи та інші санкції для водіїв і пішоходів (КУпАП)",
-            image: "/assets/books/books-icon-6.svg",
-            link: "penalty-information",
-        },
-        {
-            title: "Інформація про отримання посвідчення водія",
-            image: "/assets/books/books-icon-7.svg",
-            link: "driving-license",
-        },
-    ];
+    useEffect(() => {
+        function convertBookToMenuItem(book: Book): MenuItem {
+            return {
+                title: book.short_title,
+                link: book.is_available ? book.link : "",
+            };
+        }
+
+        function convertBooksToMenuItems(books: Book[]): MenuItem[] {
+            const menuItems: MenuItem[] = [];
+
+            books.forEach((book) => {
+                const menuItem = convertBookToMenuItem(book);
+
+                if (!menuItem.title) return;
+
+                menuItems.push(menuItem);
+            });
+
+            return menuItems;
+        }
+
+        async function getBooks() {
+            const data = await BookService.getBooks();
+
+            setBooks(data);
+
+            const menuItems = convertBooksToMenuItems(data);
+
+            setTopMenuItems(menuItems);
+        }
+
+        getBooks();
+    }, []);
 
     const handleReadBtn = (link: string) => {
         navigate(link);
@@ -91,9 +67,15 @@ export default function Books() {
                                     <h2 className="book-title">{book.title}</h2>
 
                                     <div className="btn-section">
-                                        <div className="btn btn-book" onClick={() => handleReadBtn(book.link)}>
-                                            Читати
-                                        </div>
+                                        {book.is_available ? (
+                                            <div className="btn btn-book" onClick={() => handleReadBtn(book.link)}>
+                                                Читати
+                                            </div>
+                                        ) : (
+                                            <button className="btn btn-book" disabled>
+                                                Недоступно
+                                            </button>
+                                        )}
                                     </div>
                                 </div>
                             </div>

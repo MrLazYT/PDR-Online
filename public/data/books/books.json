@@ -1,30 +1,51 @@
-{
-    "1": {
+[
+    {
         "image": "../assets/books/books-icon-1.svg",
-        "title": "ПДР 2026 України з ілюстраціями, коментарями та відео"
+        "title": "ПДР 2026 України з ілюстраціями, коментарями та відео",
+        "short_title": "ПДР",
+        "link": "pdr",
+        "is_available": true
     },
-    "2": {
+    {
+        "title": "Підручник з водіння автомобіля",
+        "short_title": "Водіння авто",
         "image": "../assets/books/books-icon-2.svg",
-        "title": "Підручник з водіння автомобіля"
+        "link": "pidruchnyk-z-vodinnia",
+        "is_available": true
     },
-    "3": {
+    {
+        "title": "Підручник з будови автомобіля",
+        "short_title": "Будова авто",
         "image": "../assets/books/books-icon-3.svg",
-        "title": "Підручник з будови автомобіля"
+        "link": "pidruchnyk-po-vlashtuvanniu-avtomobilia",
+        "is_available": false
     },
-    "4": {
+    {
+        "title": "Перша медична допомога при ДТП",
+        "short_title": "Меддопомога",
         "image": "../assets/books/books-icon-4.svg",
-        "title": "Перша медична допомога при ДТП"
+        "link": "medychna-dopomoha",
+        "is_available": true
     },
-    "5": {
+    {
+        "title": "Поради адвоката при ДТП",
+        "short_title": "Ваш адвокат",
         "image": "../assets/books/books-icon-5.svg",
-        "title": "Поради адвоката при ДТП"
+        "link": "vash-advokat",
+        "is_available": false
     },
-    "6": {
+    {
+        "title": "Штрафи та інші санкції для водіїв і пішоходів (КУпАП)",
+        "short_title": "Таблиця штрафів",
         "image": "../assets/books/books-icon-6.svg",
-        "title": "Штрафи та інші санкції для водіїв і пішоходів (КУпАП)"
+        "link": "penalty-information",
+        "is_available": false
     },
-    "7": {
+    {
+        "title": "Інформація про отримання посвідчення водія",
+        "short_title": "",
         "image": "../assets/books/books-icon-7.svg",
-        "title": "Інформація про отримання посвідчення водія"
+        "link": "driving_license",
+        "is_available": false
     }
-}
+]

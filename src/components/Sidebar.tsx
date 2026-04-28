@@ -11,13 +11,6 @@ export default function Sidebar() {
                         </Link>
                     </div>
                 </div>
-                <div className="section courses">
-                    <div className="link-block">
-                        <Link className="link" to="/courses">
-                            Навчання теорії
-                        </Link>
-                    </div>
-                </div>
                 <div className="section tests">
                     <div className="link-block">
                         <Link className="link bold" to="/tests">
@@ -42,13 +35,6 @@ export default function Sidebar() {
                         </Link>
                         <Link className="link" to="/exam">
                             Іспит
-                        </Link>
-                    </div>
-                </div>
-                <div className="section practical-courses">
-                    <div className="link-block">
-                        <Link className="link" to="/practical-courses">
-                            Іспит з водіння
                         </Link>
                     </div>
                 </div>

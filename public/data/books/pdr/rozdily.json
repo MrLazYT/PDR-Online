@@ -1,138 +1,289 @@
 [
     {
         "id": "1",
+        "chapterId": "1",
+        "type": "main",
+        "hasContent": true,
         "title": "Загальні положення"
     },
     {
         "id": "2",
+        "chapterId": "2",
+        "type": "main",
+        "hasContent": true,
         "title": "Обов’язки і права водіїв механічних транспортних засобів"
     },
     {
         "id": "3",
+        "chapterId": "3",
+        "type": "main",
+        "hasContent": true,
         "title": "Рух транспортних засобів із спеціальними сигналами"
     },
     {
         "id": "4",
+        "chapterId": "4",
+        "type": "main",
+        "hasContent": true,
         "title": "Обов’язки і права пішоходів"
     },
     {
         "id": "5",
+        "chapterId": "5",
+        "type": "main",
+        "hasContent": true,
         "title": "Обов’язки і права пасажирів"
     },
     {
         "id": "6",
+        "chapterId": "6",
+        "type": "main",
+        "hasContent": true,
         "title": "Вимоги до велосипедистів"
     },
     {
         "id": "7",
+        "chapterId": "7",
+        "type": "main",
+        "hasContent": true,
         "title": "Вимоги до осіб, які керують гужовим транспортом, і погоничів тварин"
     },
     {
         "id": "8",
+        "chapterId": "8",
+        "type": "main",
+        "hasContent": true,
         "title": "Регулювання дорожнього руху"
     },
     {
         "id": "9",
+        "chapterId": "9",
+        "type": "main",
+        "hasContent": true,
         "title": "Попереджувальні сигнали"
     },
     {
         "id": "10",
+        "chapterId": "10",
+        "type": "main",
+        "hasContent": true,
         "title": "Початок руху та зміна його напрямку"
     },
     {
         "id": "11",
+        "chapterId": "11",
+        "type": "main",
+        "hasContent": true,
         "title": "Розташування транспортних засобів на дорозі"
     },
     {
         "id": "12",
+        "chapterId": "12",
+        "type": "main",
+        "hasContent": true,
         "title": "Швидкість руху"
     },
     {
         "id": "13",
+        "chapterId": "13",
+        "type": "main",
+        "hasContent": true,
         "title": "Дистанція, інтервал, зустрічний роз’їзд"
     },
     {
         "id": "14",
+        "chapterId": "14",
+        "type": "main",
+        "hasContent": true,
         "title": "Обгін"
     },
     {
         "id": "15",
+        "chapterId": "15",
+        "type": "main",
+        "hasContent": true,
         "title": "Зупинка і стоянка"
     },
     {
         "id": "16",
+        "chapterId": "16",
+        "type": "main",
+        "hasContent": true,
         "title": "Проїзд перехресть"
     },
     {
         "id": "17",
+        "chapterId": "17",
+        "type": "main",
+        "hasContent": true,
         "title": "Перевага маршрутних транспортних засобів"
     },
     {
         "id": "18",
+        "chapterId": "18",
+        "type": "main",
+        "hasContent": true,
         "title": "Проїзд пішохідних переходів і зупинок транспортних засобів"
     },
     {
         "id": "19",
+        "chapterId": "19",
+        "type": "main",
+        "hasContent": true,
         "title": "Користування зовнішніми світловими приладами"
     },
     {
         "id": "20",
+        "chapterId": "20",
+        "type": "main",
+        "hasContent": true,
         "title": "Рух через залізничні переїзди"
     },
     {
         "id": "21",
+        "chapterId": "21",
+        "type": "main",
+        "hasContent": true,
         "title": "Перевезення пасажирів"
     },
     {
         "id": "22",
+        "chapterId": "22",
+        "type": "main",
+        "hasContent": true,
         "title": "Перевезення вантажу"
     },
     {
         "id": "23",
+        "chapterId": "23",
+        "type": "main",
+        "hasContent": true,
         "title": "Буксирування та експлуатація транспортних составів"
     },
     {
         "id": "24",
+        "chapterId": "24",
+        "type": "main",
+        "hasContent": true,
         "title": "Навчальна їзда"
     },
     {
         "id": "25",
+        "chapterId": "25",
+        "type": "main",
+        "hasContent": true,
         "title": "Рух транспортних засобів у колонах"
     },
     {
         "id": "26",
+        "chapterId": "26",
+        "type": "main",
+        "hasContent": true,
         "title": "Рух у житловій та пішохідній зоні"
     },
     {
         "id": "27",
+        "chapterId": "27",
+        "type": "main",
+        "hasContent": true,
         "title": "Рух по автомагістралях і дорогах для автомобілів"
     },
     {
         "id": "28",
+        "chapterId": "28",
+        "type": "main",
+        "hasContent": true,
         "title": "Рух по гірських дорогах і на крутих спусках *"
     },
     {
         "id": "29",
+        "chapterId": "29",
+        "type": "main",
+        "hasContent": true,
         "title": "Міжнародний рух"
     },
     {
         "id": "30",
+        "chapterId": "30",
+        "type": "main",
+        "hasContent": true,
         "title": "Номерні, розпізнавальні знаки, написи і позначення"
     },
     {
         "id": "31",
+        "chapterId": "31",
+        "type": "main",
+        "hasContent": true,
         "title": "Технічний стан транспортних засобів та їх обладнання"
     },
     {
         "id": "32",
+        "chapterId": "32",
+        "type": "main",
+        "hasContent": true,
         "title": "Окремі питання дорожнього руху, що потребують узгодження"
     },
     {
         "id": "33",
+        "chapterId": "33",
+        "type": "main",
+        "hasContent": true,
         "title": "Дорожні знаки"
     },
     {
         "id": "34",
+        "chapterId": "33",
+        "type": "sub",
+        "hasContent": true,
+        "title": "Попереджувальні знаки"
+    },
+    {
+        "id": "35",
+        "chapterId": "33",
+        "type": "sub",
+        "hasContent": true,
+        "title": "Знаки пріоритету"
+    },
+    {
+        "id": "36",
+        "chapterId": "33",
+        "type": "sub",
+        "hasContent": true,
+        "title": "Заборонні знаки"
+    },
+    {
+        "id": "37",
+        "chapterId": "33",
+        "type": "sub",
+        "hasContent": true,
+        "title": "Наказові знаки"
+    },
+    {
+        "id": "38",
+        "chapterId": "33",
+        "type": "sub",
+        "hasContent": true,
+        "title": "Інформаційно-вказівні знаки"
+    },
+    {
+        "id": "39",
+        "chapterId": "33",
+        "type": "sub",
+        "hasContent": true,
+        "title": "Знаки сервісу"
+    },
+    {
+        "id": "40",
+        "chapterId": "33",
+        "type": "sub",
+        "hasContent": true,
+        "title": "Таблички до дорожніх знаків"
+    },
+    {
+        "id": "41",
+        "chapterId": "34",
+        "type": "main",
+        "hasContent": true,
         "title": "Дорожня розмітка"
     }
 ]

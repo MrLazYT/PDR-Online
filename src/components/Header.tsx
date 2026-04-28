@@ -18,10 +18,6 @@ export default function Header() {
                     <span className="description">Сповіщення</span>
                 </div>
 
-                <div className="messages">
-                    <span className="description">Повідомлення</span>
-                </div>
-
                 <div className="category">
                     <p className="category-type">B</p>
                     <span className="description">Категорія посвідчення, за якою Ви проходите навчання</span>
@@ -40,18 +36,6 @@ export default function Header() {
                             </Link>
                             <Link className="link" to="/statistics">
                                 Статистика
-                            </Link>
-                            <Link className="link" to="/awards">
-                                Нагороди
-                            </Link>
-                            <Link className="link" to="/groups">
-                                Моя група
-                            </Link>
-                            <Link className="link" to="/messages">
-                                Повідомлення
-                            </Link>
-                            <Link className="link" to="/comments">
-                                Коментарі
                             </Link>
                             <Link className="link" to="/leave">
                                 Вихід

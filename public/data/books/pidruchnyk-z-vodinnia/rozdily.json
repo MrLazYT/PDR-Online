@@ -1,146 +1,252 @@
 [
     {
         "id": "1",
+        "chapterId": "1",
+        "type": "main",
+        "hasContent": false,
         "title": "Вступна частина"
     },
     {
         "id": "1.1",
+        "chapterId": "1",
+        "type": "sub",
+        "hasContent": true,
         "title": "Від автора"
     },
     {
         "id": "1.2",
+        "chapterId": "1",
+        "type": "sub",
+        "hasContent": true,
         "title": "Автомат або механіка"
     },
     {
         "id": "2",
+        "chapterId": "2",
+        "type": "main",
+        "hasContent": false,
         "title": "Водіння на навчальному майданчику"
     },
     {
         "id": "2.1",
+        "chapterId": "2",
+        "type": "sub",
+        "hasContent": true,
         "title": "Посадка за кермом, налаштування дзеркал, рулювання та перемикання передач"
     },
     {
         "id": "2.2",
+        "chapterId": "2",
+        "type": "sub",
+        "hasContent": true,
         "title": "Старт автомобіля"
     },
     {
         "id": "2.3",
+        "chapterId": "2",
+        "type": "sub",
+        "hasContent": true,
         "title": "Вправа «старт-зупинка»"
     },
     {
         "id": "2.4",
+        "chapterId": "2",
+        "type": "sub",
+        "hasContent": true,
         "title": "Змійка переднім ходом"
     },
     {
         "id": "2.5",
+        "chapterId": "2",
+        "type": "sub",
+        "hasContent": true,
         "title": "Змійка переднім ходом зі старт-зупинкою"
     },
     {
         "id": "2.6",
+        "chapterId": "2",
+        "type": "sub",
+        "hasContent": true,
         "title": "Основи руху заднім ходом"
     },
     {
         "id": "2.7",
+        "chapterId": "2",
+        "type": "sub",
+        "hasContent": true,
         "title": "Розворот"
     },
     {
         "id": "2.8",
+        "chapterId": "2",
+        "type": "sub",
+        "hasContent": true,
         "title": "Змійка заднім ходом"
     },
     {
         "id": "2.9",
+        "chapterId": "2",
+        "type": "sub",
+        "hasContent": true,
         "title": "Слалом"
     },
     {
         "id": "2.10",
+        "chapterId": "2",
+        "type": "sub",
+        "hasContent": true,
         "title": "Розворот у габаритному дворику"
     },
     {
         "id": "3",
+        "chapterId": "3",
+        "type": "main",
+        "hasContent": false,
         "title": "Водіння в умовах міста"
     },
     {
         "id": "3.1",
+        "chapterId": "3",
+        "type": "sub",
+        "hasContent": true,
         "title": "Перший виїзд на дорогу"
     },
     {
         "id": "3.2",
+        "chapterId": "3",
+        "type": "sub",
+        "hasContent": true,
         "title": "Перемикання передач"
     },
     {
         "id": "3.3",
+        "chapterId": "3",
+        "type": "sub",
+        "hasContent": true,
         "title": "Старт в гору"
     },
     {
         "id": "3.4",
+        "chapterId": "3",
+        "type": "sub",
+        "hasContent": true,
         "title": "Основні принципи руху в потоці"
     },
     {
         "id": "3.5",
+        "chapterId": "3",
+        "type": "sub",
+        "hasContent": true,
         "title": "Проїзд перехресть"
     },
     {
         "id": "3.6",
+        "chapterId": "3",
+        "type": "sub",
+        "hasContent": true,
         "title": "Обгін і зустрічний роз'їзд"
     },
     {
         "id": "3.7",
+        "chapterId": "3",
+        "type": "sub",
+        "hasContent": true,
         "title": "Пішоходи і сусіди по дорозі"
     },
     {
         "id": "4",
+        "chapterId": "4",
+        "type": "main",
+        "hasContent": false,
         "title": "Паркування"
     },
     {
         "id": "4.1",
+        "chapterId": "4",
+        "type": "sub",
         "title": "Способи паркування"
     },
     {
         "id": "4.2",
+        "chapterId": "4",
+        "type": "sub",
+        "hasContent": true,
         "title": "Паралельна парковка переднім ходом"
     },
     {
         "id": "4.3",
+        "chapterId": "4",
+        "type": "sub",
+        "hasContent": true,
         "title": "Паралельна парковка заднім ходом"
     },
     {
         "id": "4.4",
+        "chapterId": "4",
+        "type": "sub",
+        "hasContent": true,
         "title": "Парковка типу «Гараж»"
     },
     {
         "id": "5",
+        "chapterId": "5",
+        "type": "main",
+        "hasContent": false,
         "title": "Особливості руху в особливих умовах"
     },
     {
         "id": "5.1",
+        "chapterId": "5",
+        "type": "sub",
+        "hasContent": true,
         "title": "Особливості руху в темну пору доби"
     },
     {
         "id": "5.2",
+        "chapterId": "5",
+        "type": "sub",
+        "hasContent": true,
         "title": "Особливості руху в дощ"
     },
     {
         "id": "5.3",
+        "chapterId": "5",
+        "type": "sub",
+        "hasContent": true,
         "title": "Особливості руху з причепом"
     },
     {
         "id": "6",
+        "chapterId": "6",
+        "type": "main",
+        "hasContent": false,
         "title": "Висновок"
     },
     {
         "id": "6.1",
+        "chapterId": "6",
+        "type": "sub",
+        "hasContent": true,
         "title": "Що потрібно брати з собою в дорогу"
     },
     {
         "id": "6.2",
+        "chapterId": "6",
+        "type": "sub",
         "title": "Заключні настанови"
     },
     {
         "id": "7",
+        "chapterId": "7",
+        "type": "main",
+        "hasContent": false,
         "title": "ДОДАТКИ"
     },
     {
         "id": "7.1",
+        "chapterId": "7",
+        "type": "sub",
+        "hasContent": true,
         "title": "Пам'ятка водія"
     }
 ]

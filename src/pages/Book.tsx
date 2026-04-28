@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import type { Chapter } from "../types/chapter.type";
 import { BookService } from "../services/book.service";
 import type { MenuItem } from "../types/menuItem";
@@ -12,6 +12,17 @@ export default function Book() {
     const [currentChapter, setCurrentChapter] = useState<Chapter>();
     const [chapterContent, setChapterContent] = useState<any[]>([]);
     const [openedExpertCommentId, setOpenedExpertCommentId] = useState<number>(-1);
+    const navigate = useNavigate();
+
+    const bookTypeToTitleMap: Record<string, string> = {
+        pdr: "ПДР",
+        "pidruchnyk-z-vodinnia": "Водіння авто",
+        "pidruchnyk-po-vlashtuvanniu-avtomobilia": "Будова авто",
+        "medychna-dopomoha": "Меддопомога",
+        "vash-advokat": "Ваш адвокат",
+        "penalty-information": "Таблиця штрафів",
+        driving_license: "Загальна інформація",
+    };
 
     const topMenuItems: MenuItem[] = [
         {
@@ -19,7 +30,7 @@ export default function Book() {
             link: "/dovidniki",
         },
         {
-            title: "ПДР",
+            title: bookTypeToTitleMap[bookType!],
             link: "",
         },
     ];
@@ -35,6 +46,8 @@ export default function Book() {
     }, []);
 
     useEffect(() => {
+        if (!chapterSlug || chapters.length == 0) return;
+
         const chapterId = chapterSlug?.replace("rozdil-", "");
         const chapter = chapters.find((chapter) => chapter.id == chapterId);
 
@@ -44,10 +57,30 @@ export default function Book() {
     }, [chapters, chapterSlug]);
 
     useEffect(() => {
+        if (chapterSlug) return;
+        if (!bookType || chapters.length == 0) return;
+
+        const chapterId = chapters[0].id;
+
+        navigate(`/dovidniki/${bookType}/rozdil-${chapterId}`);
+    }, [bookType, chapters, chapterSlug]);
+
+    useEffect(() => {
         if (!bookType || !chapterId) return;
 
         async function getChapter() {
             const data = await BookService.getChapter(bookType!, "" + chapterId);
+
+            if (!data) {
+                if (!chapterId.includes(".")) {
+                    navigate(`/dovidniki/${bookType}/rozdil-${chapterId}.1`);
+                } else {
+                    navigate(`/dovidniki/${bookType}`);
+                }
+
+                return;
+            }
+
             const dataArr = Object.values(data) as string[];
 
             const fixed = dataArr.map((html: string) =>
@@ -68,7 +101,7 @@ export default function Book() {
         }
 
         getChapter();
-    }, [bookType, chapterId]);
+    }, [chapterContent, bookType, chapterId]);
 
     useEffect(() => {
         const expertComments = document.getElementsByClassName("info-pdd expert");
@@ -85,9 +118,9 @@ export default function Book() {
             const commentQuestion = expertComments[i].getElementsByClassName("comment_question")[0];
 
             if (openedExpertCommentId != i) {
-                commentQuestion.classList.add("collapsed");
+                commentQuestion?.classList.add("collapsed");
             } else {
-                commentQuestion.classList.remove("collapsed");
+                commentQuestion?.classList.remove("collapsed");
             }
         }
 
@@ -113,7 +146,13 @@ export default function Book() {
                                 to={`/dovidniki/${bookType}/rozdil-${chapter.id}`}
                                 className={`link ${chapterId == chapter.id.replaceAll(".", "_") ? "selected-" : ""}chapter-item`}
                             >
-                                <span className="bold">Розділ {chapter.id}</span>: {chapter.title}
+                                {chapter.type === "main" ? (
+                                    <span className="bold">Розділ {chapter.chapterId}</span>
+                                ) : (
+                                    ""
+                                )}
+                                {chapter.type === "main" ? ": " : ""}
+                                {chapter.title}
                             </Link>
                         ))}
                     </div>
@@ -121,7 +160,7 @@ export default function Book() {
 
                 <div className="chapter-content">
                     <h1 className="chapter-title">
-                        {currentChapter?.id}. {currentChapter?.title}
+                        {currentChapter?.chapterId}. {currentChapter?.title}
                     </h1>
 
                     {chapterContent.map((html, index) => {

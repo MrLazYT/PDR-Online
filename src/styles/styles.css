@@ -423,6 +423,16 @@ header {
     background-color: #f4f4f4;
 }
 
+.btn:disabled {
+    background-color: #eee;
+    color: #333;
+    border: 1px solid #b9c2cb;
+}
+
+.btn:disabled:hover {
+    background-color: #eee;
+}
+
 .btn-start {
     width: 80px;
 }
@@ -1035,10 +1045,10 @@ header {
 }
 
 .chapter-content .text img {
-    margin-top: 0 !important;
-    margin-left: auto !important;
-    margin-right: auto !important;
-    margin-bottom: 20px !important;
+    margin-top: 0;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 20px;
     max-width: max(500px, calc(100% - 320px));
 }
 
@@ -1118,5 +1128,211 @@ header {
 }
 
 table {
+    max-width: 100%;
+    margin-top: 5px;
+    border: none;
+    empty-cells: show;
     border-collapse: collapse;
+}
+
+td {
+    border: 1px solid #ddd;
+    word-wrap: break-word;
+    padding: 8px;
+}
+
+.content {
+    display: flex;
+    align-items: flex-start;
+    flex-wrap: wrap;
+}
+
+.signs {
+    text-align: center;
+    font-size: 20px;
+    margin-top: 40px;
+    margin-bottom: 40px;
+    font-weight: 500;
+    line-height: 1.1;
+}
+
+.child-signs {
+    display: inline-block;
+    vertical-align: top;
+}
+
+.child-signs.width-1 {
+    width: 100px;
+}
+
+.paragraph.child-signs#paragraph_16_napryamky-ruhu-po-smughah,
+.paragraph.child-signs#paragraph_16_napryamky-ruhu-po-smughah .img-pdd div,
+.paragraph.child-signs#paragraph_17_1_napryamok-ruhu-po-smugah .img-pdd div,
+.paragraph.child-signs#paragraph_19_vykorystannya-smugy-ruhu .img-pdd div {
+    width: 150px;
+}
+
+.paragraph.child-signs#paragraph_1_ruh-zaboroneno,
+.paragraph.child-signs#paragraph_2_proyizd-bez-zupynky-zaboroneno,
+.paragraph.child-signs#paragraph_38_zona-obmejenoyi-stoyanky,
+.paragraph.child-signs#paragraph_39_insha-nebezpeka-avariyno-nebezpechna-dilyanka,
+.paragraph.child-signs#paragraph_45_1_zupynky-avtobusa,
+.paragraph.child-signs#paragraph_48_misce-zupinki-taksi,
+.paragraph.child-signs#paragraph_7_1_vyyizd-na-dorogu-z-odnostoronnim-ruhom,
+.paragraph.child-signs#paragraph_8_viyizd-na-naberejnu-abo-bereg {
+    width: 100px;
+}
+
+.paragraph.child-signs#paragraph_31_1_napryamok-ruhu-dlya-vantajnyh-avtomobiliv {
+    padding-top: 46px;
+}
+
+.paragraph.child-signs#paragraph_1_avtomaghistral .img-pdd div,
+.paragraph.child-signs#paragraph_31_1_nablyzhennja-do-zaliznychnogo-pereizdu .img-pdd div,
+.paragraph.child-signs#paragraph_4_1_napryamok-povorotu .img-pdd div {
+    width: auto;
+}
+
+.paragraph.child-signs#paragraph_4_1_napryamok-povorotu {
+    max-width: 380px;
+}
+
+.paragraph.child-signs#paragraph_5_24_minimalna-shvydkist-na-riznykh-smuhakh-rukhu,
+.paragraph.child-signs#paragraph_5_24_minimalna-shvydkist-na-riznykh-smuhakh-rukhu .img-pdd div,
+.paragraph.child-signs#paragraph_5_26_obmezhennya_maksymalnoyi_shvydkosti_na_riznykh_smuhakh_rukhu,
+.paragraph.child-signs#paragraph_5_26_obmezhennya_maksymalnoyi_shvydkosti_na_riznykh_smuhakh_rukhu .img-pdd div {
+    width: 140px;
+}
+
+.paragraph.child-signs#paragraph_5_25_minimalna-shvydkist-na-smuzi-rukhu .img-pdd div {
+    width: 114px;
+}
+
+.paragraph.child-signs#paragraph_57_poperednij-pokajchyk-napryamkiv,
+.paragraph.child-signs#paragraph_57_poperednij-pokajchyk-napryamkiv .img-pdd div {
+    width: 155px;
+}
+
+.paragraph.child-signs#paragraph_5_80_1_2_pokazhchyk-napryamku-i-vidstani-do-avariynoho-vykhodu {
+    padding-top: 47px;
+}
+
+.paragraph.child-signs#paragraph_5_80_1_2_pokazhchyk-napryamku-i-vidstani-do-avariynoho-vykhodu,
+.paragraph.child-signs#paragraph_5_93_sumizhni-pishokhidnyy-perekhid-ta-velosypednyy-pereyizd,
+.paragraph.child-signs#paragraph_5_95_vyyizd-na-dorohu-z-odnostoronnim-rukhom-i-zustrichnoyu-velosypednoyu-smuhoyu {
+    width: 210px;
+}
+
+.paragraph.child-signs#paragraph_5_81_pokazhchyk-napryamkiv-i-vidstani-do-avariynykh-vykhodiv {
+    padding-top: 56px;
+}
+
+.paragraph.child-signs#paragraph_5_82_1platna-doroha a:nth-child(2),
+.paragraph.child-signs#paragraph_5_83_2_kinets-platnoyi-dorohy a:nth-child(2) {
+    vertical-align: bottom;
+}
+
+.paragraph.child-signs#paragraph_84_pochatok-prykordonnoyi-smugy,
+.paragraph.child-signs#paragraph_85_kinec-prykordonnoyi-smugy,
+.paragraph.child-signs#paragraph_86_pochatok-kontrolovanogo-prykordonnogo-rayonu,
+.paragraph.child-signs#paragraph_87_kinec-kontrolovanogo-prykordonnogo-rayonu {
+    padding-top: 50px;
+}
+
+.paragraph.child-signs#paragraph_2_1_zona-diyi a:nth-child(2) div,
+.paragraph.child-signs#paragraph_2_1_zona-diyi a:nth-child(3) div,
+.paragraph.child-signs#paragraph_2_1_zona-diyi a:nth-child(4) div {
+    width: 66px;
+}
+
+.paragraph.child-signs#paragraph_3_1_napryamok-diyi {
+    width: 205px;
+}
+
+.paragraph.child-signs#paragraph_4_1_chas-diyi {
+    width: 308px;
+}
+
+.paragraph.child-signs#paragraph_1_1_vidstan-do-objekta {
+    width: 205px;
+}
+
+.paragraph.child-signs#paragraph_2_1_zona-diyi {
+    width: 315px;
+}
+
+.paragraph.child-signs#paragraph_1_daty-dorogu,
+.paragraph.child-signs#paragraph_2_proyizd-bez-zupynky-zaboroneno,
+.paragraph.child-signs#paragraph_3_golovna-doroga,
+.paragraph.child-signs#paragraph_4_kinec-golovnoyi-dorogy,
+.paragraph.child-signs#paragraph_5_perevaga-zustrichnogo-ruhu,
+.paragraph.child-signs#paragraph_6_perevaga-pered-zustrichnym-ruhom {
+    width: 136px;
+}
+
+.paragraph.child-signs#paragraph_20_1_napryamok-ruhu-transportnyh-zasobiv-z-nebezpechnymy-vantajamy {
+    width: 240px;
+}
+
+.paragraph.child-signs#paragraph_20_1_napryamok-ruhu-transportnyh-zasobiv-z-nebezpechnymy-vantajamy .img-pdd div {
+    width: 75px;
+}
+
+.child-signs.width-9 {
+    max-width: 516px;
+}
+
+.child-signs .img-pdd {
+    margin-top: 0px;
+    text-align: center;
+    margin-bottom: 0px;
+}
+
+.child-signs.width-7#paragraph_4_1_napryamok-povorotu .img-pdd img {
+    height: 21px;
+}
+
+.child-signs.width-7 .img-pdd > a {
+    display: inline-block;
+}
+
+.child-signs .img-pdd div {
+    display: inline-block;
+    margin: 0 auto;
+    height: auto;
+    vertical-align: top;
+}
+
+.child-signs .img-pdd img {
+    margin-bottom: 0;
+}
+
+.child-signs .img-pdd div img {
+    margin: 0 auto;
+    max-width: 100% !important;
+    max-height: 73px;
+    aspect-ratio: unset;
+}
+
+.child-signs .img-pdd span {
+    position: relative;
+    left: 0;
+    bottom: 0;
+    text-decoration: none;
+    background-color: #fff;
+}
+
+.child-signs .text {
+    margin-bottom: 8px;
+    font-size: 13px;
+    text-align: center;
+    line-height: 13px;
+}
+
+.chapter-content hr {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    height: 0;
+    border: 0;
+    border-top: 1px solid #eee;
 }
