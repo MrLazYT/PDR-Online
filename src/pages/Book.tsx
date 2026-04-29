@@ -6,9 +6,11 @@ import type { MenuItem } from "../types/menuItem";
 import TopMenu from "../components/TopMenu";
 
 export default function Book() {
-    const { bookType, chapterSlug } = useParams();
+    const { bookType, chapterSlug, subsectionSlug } = useParams();
     const [chapters, setChapters] = useState<Chapter[]>([]);
     const [chapterId, setChapterId] = useState<string>("");
+    const [subsectionId, setSubsectionId] = useState<string>("");
+    const [activeSubsection, setActiveSubsection] = useState<string>("");
     const [currentChapter, setCurrentChapter] = useState<Chapter>();
     const [chapterContent, setChapterContent] = useState<any[]>([]);
     const [openedExpertCommentId, setOpenedExpertCommentId] = useState<number>(-1);
@@ -48,13 +50,21 @@ export default function Book() {
     useEffect(() => {
         if (!chapterSlug || chapters.length == 0) return;
 
-        const chapterId = chapterSlug?.replace("rozdil-", "");
+        const chapterId = chapterSlug.replace("rozdil-", "");
         const chapter = chapters.find((chapter) => chapter.id == chapterId);
 
         setChapterId(chapterId!);
         setCurrentChapter(chapter);
         window.scrollTo({ top: 0, behavior: "instant" });
     }, [chapters, chapterSlug]);
+
+    useEffect(() => {
+        if (!subsectionSlug) return;
+
+        const subsectionId = subsectionSlug.replace("chastyna-", "");
+
+        setSubsectionId(subsectionId);
+    }, [subsectionSlug]);
 
     useEffect(() => {
         if (chapterSlug) return;
@@ -73,7 +83,7 @@ export default function Book() {
 
             if (!data) {
                 if (!chapterId.includes(".")) {
-                    navigate(`/dovidniki/${bookType}/rozdil-${chapterId}.1`);
+                    navigate(`/dovidniki/${bookType}/rozdil-${chapterId}`);
                 } else {
                     navigate(`/dovidniki/${bookType}`);
                 }
@@ -101,7 +111,66 @@ export default function Book() {
         }
 
         getChapter();
-    }, [chapterContent, bookType, chapterId]);
+    }, [bookType, chapterId]);
+
+    useEffect(() => {
+        if (!subsectionId || !chapterContent.length) return;
+
+        const headers = document.querySelectorAll(".chapter-content h3");
+
+        const target = Array.from(headers).find((el) =>
+            el.textContent?.trim().startsWith(`${chapterId}.${subsectionId}`),
+        );
+
+        if (!target) return;
+
+        const currentSectionBlock = target.parentElement;
+
+        if (!currentSectionBlock) return;
+
+        currentSectionBlock.scrollIntoView({
+            behavior: "smooth",
+            block: "start",
+        });
+    }, [subsectionId, chapterContent]);
+
+    useEffect(() => {
+        const headers = document.querySelectorAll(".chapter-content h3");
+
+        if (!headers.length) return;
+
+        const observer = new IntersectionObserver(
+            (entries) => {
+                const visible = entries
+                    .filter((e) => e.isIntersecting)
+                    .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
+
+                if (visible.length > 0) {
+                    const text = visible[0].target.textContent || "";
+
+                    const match = text.match(/^(\d+\.\d+)/);
+
+                    if (match) {
+                        setActiveSubsection(match[1]);
+                    }
+                }
+            },
+            {
+                rootMargin: "-80px 0px -60% 0px",
+                threshold: 0,
+            },
+        );
+
+        headers.forEach((header) => observer.observe(header));
+
+        return () => observer.disconnect();
+    }, [chapterContent]);
+
+    useEffect(() => {
+        if (!chapterId) return;
+
+        setSubsectionId("1");
+    }, [chapterId]);
 
     useEffect(() => {
         const expertComments = document.getElementsByClassName("info-pdd expert");
@@ -143,8 +212,8 @@ export default function Book() {
                         {chapters.map((chapter, index) => (
                             <Link
                                 key={index}
-                                to={`/dovidniki/${bookType}/rozdil-${chapter.id}`}
-                                className={`link ${chapterId == chapter.id.replaceAll(".", "_") ? "selected-" : ""}chapter-item`}
+                                to={`/dovidniki/${bookType}/rozdil-${chapter.chapterId}/${chapter.subsectionId !== "0" && chapter.subsectionId !== undefined ? `chastyna-${chapter.subsectionId}` : ""}`}
+                                className={`link ${chapterId == chapter.id || activeSubsection == `${chapter.chapterId}.${chapter.subsectionId}` ? "selected-" : ""}chapter-item`}
                             >
                                 {chapter.type === "main" ? (
                                     <span className="bold">Розділ {chapter.chapterId}</span>
@@ -170,6 +239,7 @@ export default function Book() {
                         return (
                             <div
                                 key={index}
+                                id={`subsection-${index + 1}`}
                                 className={`text${nextStartsWithH3 ? " section-break" : ""}`}
                                 dangerouslySetInnerHTML={{ __html: html }}
                             />

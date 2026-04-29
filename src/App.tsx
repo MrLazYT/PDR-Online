@@ -20,6 +20,7 @@ function App() {
                 <Route path="/dovidniki" element={<Books />} />
                 <Route path="/dovidniki/:bookType" element={<Book />} />
                 <Route path="/dovidniki/:bookType/:chapterSlug" element={<Book />} />
+                <Route path="/dovidniki/:bookType/:chapterSlug/:subsectionSlug" element={<Book />} />
             </Routes>
         </>
     );

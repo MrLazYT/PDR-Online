@@ -232,49 +232,49 @@
     },
     {
         "id": "34",
-        "chapterId": "33",
+        "chapterId": "34",
         "type": "sub",
         "hasContent": true,
         "title": "Попереджувальні знаки"
     },
     {
         "id": "35",
-        "chapterId": "33",
+        "chapterId": "35",
         "type": "sub",
         "hasContent": true,
         "title": "Знаки пріоритету"
     },
     {
         "id": "36",
-        "chapterId": "33",
+        "chapterId": "36",
         "type": "sub",
         "hasContent": true,
         "title": "Заборонні знаки"
     },
     {
         "id": "37",
-        "chapterId": "33",
+        "chapterId": "37",
         "type": "sub",
         "hasContent": true,
         "title": "Наказові знаки"
     },
     {
         "id": "38",
-        "chapterId": "33",
+        "chapterId": "38",
         "type": "sub",
         "hasContent": true,
         "title": "Інформаційно-вказівні знаки"
     },
     {
         "id": "39",
-        "chapterId": "33",
+        "chapterId": "39",
         "type": "sub",
         "hasContent": true,
         "title": "Знаки сервісу"
     },
     {
         "id": "40",
-        "chapterId": "33",
+        "chapterId": "40",
         "type": "sub",
         "hasContent": true,
         "title": "Таблички до дорожніх знаків"

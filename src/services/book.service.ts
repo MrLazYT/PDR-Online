@@ -19,14 +19,7 @@ export class BookService {
     }
 
     public static async getChapter(bookName: string, chapterId: string) {
-        const meta = await this.getChapterMeta(bookName, chapterId);
-
-        if (!meta || !meta.hasContent) {
-            return null;
-        }
-
-        const normalizedChapterId = chapterId.replaceAll(".", "_");
-        const response = await fetch(`${this.path}/${bookName}/rozdil_${normalizedChapterId}.json`);
+        const response = await fetch(`${this.path}/${bookName}/rozdil_${chapterId}.json`);
         const data = await response.json();
 
         return data;
