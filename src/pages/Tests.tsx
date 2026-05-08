@@ -7,7 +7,7 @@ import type { MenuItem } from "../types/menuItem";
 
 export default function Tests() {
     const [testSections, setTestSections] = useState<TestType[]>([]);
-    const [extendedTestId, setExtendedTestId] = useState<number>(0);
+    const [extendedTestId, setExtendedTestId] = useState<number>();
     const navigate = useNavigate();
 
     const topMenuItems: MenuItem[] = [
@@ -17,23 +17,19 @@ export default function Tests() {
         },
         {
             title: "20 випадкових запитань",
-            link: "/twenty-questions",
+            link: "/test/twenty-questions",
         },
         {
             title: "100 найпоширеніших помилок",
-            link: "/top-difficult",
+            link: "/test/top-difficult",
         },
         {
             title: "Робота над помилками",
-            link: "/mistakes",
-        },
-        {
-            title: "Обране",
-            link: "/favourites",
+            link: "mistakes",
         },
         {
             title: "Іспит",
-            link: "/exam",
+            link: "/test/exam",
         },
     ];
 

@@ -42,19 +42,15 @@ export default function Test() {
         },
         {
             title: "20 випадкових запитань",
-            link: "/twenty-questions",
+            link: "/test/twenty-questions",
         },
         {
             title: "100 найпоширеніших помилок",
-            link: "/top-difficult",
+            link: "/test/top-difficult",
         },
         {
             title: "Робота над помилками",
             link: "/mistakes",
-        },
-        {
-            title: "Обране",
-            link: "/favourites",
         },
         {
             title: "Іспит",
@@ -93,14 +89,27 @@ export default function Test() {
     }, [answeredQuestions, currentQuestion]);
 
     useEffect(() => {
+        setQuestions(undefined);
+        setCurrentQuestion(undefined);
+        setAnsweredQuestions([]);
+        setTestTimer(0);
+        setCurrentQuestionTimer(0);
+        setQuestionTimers([]);
+        setIsFinished(false);
+        setIsFinishedDialogShown(false);
+        setIsPDDSectionOpened(false);
+        setIsExpertCommentOpened(false);
+        setIsVideoSectionOpened(false);
+        scrollToStart();
+
         async function getTestData() {
-            const data = await getSectionProgress(parseInt(testId!));
+            const data = await getSectionProgress(testId!);
 
             setTestData(data);
         }
 
         async function getQuestionData() {
-            const data = await QuestionService.getAllQuestions(parseInt(testId!));
+            const data = await QuestionService.getAllQuestions(testId!);
             const timers = new Array<number>(data.length).fill(0);
 
             setQuestions(data);
@@ -111,7 +120,7 @@ export default function Test() {
 
         getTestData();
         getQuestionData();
-    }, []);
+    }, [testId]);
 
     useEffect(() => {
         const scrollbar = document.getElementById("scrollbar");
@@ -407,7 +416,7 @@ export default function Test() {
                 setIsFinished(true);
                 setIsFinishedDialogShown(true);
 
-                const sectionProgress = getSectionProgress(parseInt(testId!));
+                const sectionProgress = getSectionProgress(testId!);
 
                 const correctQuestions = updated.filter((question) => question.isRight == true);
 
@@ -562,7 +571,9 @@ export default function Test() {
                     </div>
 
                     <div className="question-block">
-                        <h2 className="question-title">{currentQuestion?.text}</h2>
+                        <h2 className="question-title">
+                            <span dangerouslySetInnerHTML={{ __html: currentQuestion?.text! }} />
+                        </h2>
 
                         <div className="question-info">
                             <div className="btn-block-ver">

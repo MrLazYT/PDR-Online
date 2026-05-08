@@ -51,7 +51,7 @@ export function getSectionProgresses(): TestType[] {
     return parsed;
 }
 
-export function getSectionProgress(sectionId: number): TestType | undefined {
+export function getSectionProgress(sectionId: string): TestType | undefined {
     const sections = getSectionProgresses();
 
     const section = sections.find((cur_section) => cur_section.section_id == sectionId);
