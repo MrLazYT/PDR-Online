@@ -103,7 +103,7 @@ export default function Test() {
         scrollToStart();
 
         async function getTestData() {
-            const data = await getSectionProgress(testId!);
+            const data = await getSectionProgress(parseInt(testId!));
 
             setTestData(data);
         }
@@ -416,7 +416,7 @@ export default function Test() {
                 setIsFinished(true);
                 setIsFinishedDialogShown(true);
 
-                const sectionProgress = getSectionProgress(testId!);
+                const sectionProgress = getSectionProgress(parseInt(testId!));
 
                 const correctQuestions = updated.filter((question) => question.isRight == true);
 
