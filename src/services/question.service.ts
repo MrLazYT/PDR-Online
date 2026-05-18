@@ -16,19 +16,19 @@ export class QuestionService {
     }
 
     public static async getTwentyRandomQuestions(): Promise<Question[]> {
-        const response = await fetch(`${this.path}/twenty_questions_sections.json`);
+        // const response = await fetch(`${this.path}/twenty_questions_sections.json`);
 
-        if (!response.ok) {
-            throw new Error(`Failed to load sections: ${response.status}`);
-        }
+        // if (!response.ok) {
+        //     throw new Error(`Failed to load sections: ${response.status}`);
+        // }
 
-        const sections: TestType[] = await response.json();
+        // const sections: TestType[] = await response.json();
+        // const requests = sections.map((section) => this.getSectionQuestions(section.section_id));
+        // const questionsBySections = await Promise.all(requests);
+        // const allQuestions = questionsBySections.flat();
 
-        const requests = sections.map((section) => this.getSectionQuestions(section.section_id));
-
-        const questionsBySections = await Promise.all(requests);
-
-        const allQuestions = questionsBySections.flat();
+        const response = await fetch(`${this.path}/all_questions.json`);
+        const allQuestions: Question[] = await response.json();
 
         return this.shuffle(allQuestions).slice(0, 20);
     }
