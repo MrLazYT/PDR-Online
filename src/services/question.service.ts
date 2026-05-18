@@ -17,20 +17,32 @@ export class QuestionService {
 
     public static async getTwentyRandomQuestions(): Promise<Question[]> {
         const response = await fetch(`${this.path}/twenty_questions_sections.json`);
+
+        if (!response.ok) {
+            throw new Error(`Failed to load sections: ${response.status}`);
+        }
+
         const sections: TestType[] = await response.json();
 
-        const allQuestions: Question[] = [];
+        const requests = sections.map((section) => this.getSectionQuestions(section.section_id));
 
-        for (const section of sections) {
-            const sectionQuestions = await this.getSectionQuestions(section.section_id);
-            allQuestions.push(...sectionQuestions);
-        }
+        const questionsBySections = await Promise.all(requests);
+
+        const allQuestions = questionsBySections.flat();
 
         return this.shuffle(allQuestions).slice(0, 20);
     }
 
     public static shuffle<T>(arr: T[]): T[] {
-        return [...arr].sort(() => Math.random() - 0.5);
+        const result = [...arr];
+
+        for (let i = result.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i * 1));
+
+            [result[i], result[j]] = [result[j], result[i]];
+        }
+
+        return result;
     }
 
     public static async getTopDifficult(): Promise<Question[]> {
