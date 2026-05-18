@@ -1,5 +1,4 @@
 import type { Question } from "../types/question.type";
-// import type { TestType } from "../types/testData.type";
 
 export class QuestionService {
     private static path: string = "/data/tests";
@@ -16,17 +15,6 @@ export class QuestionService {
     }
 
     public static async getTwentyRandomQuestions(): Promise<Question[]> {
-        // const response = await fetch(`${this.path}/twenty_questions_sections.json`);
-
-        // if (!response.ok) {
-        //     throw new Error(`Failed to load sections: ${response.status}`);
-        // }
-
-        // const sections: TestType[] = await response.json();
-        // const requests = sections.map((section) => this.getSectionQuestions(section.section_id));
-        // const questionsBySections = await Promise.all(requests);
-        // const allQuestions = questionsBySections.flat();
-
         const response = await fetch(`${this.path}/all_questions.json`);
         const allQuestions: Question[] = await response.json();
 

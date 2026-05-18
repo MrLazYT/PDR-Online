@@ -103,6 +103,42 @@ export default function Test() {
         scrollToStart();
 
         async function getTestData() {
+            if (testId == "twenty-questions") {
+                setTestData({
+                    section_id: 0,
+                    title: "20 випадкових запитань",
+                    total: "20",
+                    correct: "0",
+                    completed: "0",
+                });
+
+                return;
+            }
+
+            if (testId == "top-difficult") {
+                setTestData({
+                    section_id: 0,
+                    title: "100 найпоширеніших помилок",
+                    total: "100",
+                    correct: "0",
+                    completed: "0",
+                });
+
+                return;
+            }
+
+            if (testId == "exam") {
+                setTestData({
+                    section_id: 0,
+                    title: "Іспит",
+                    total: "20",
+                    correct: "0",
+                    completed: "0",
+                });
+
+                return;
+            }
+
             const data = await getSectionProgress(parseInt(testId!));
 
             setTestData(data);
@@ -416,19 +452,23 @@ export default function Test() {
                 setIsFinished(true);
                 setIsFinishedDialogShown(true);
 
-                const sectionProgress = getSectionProgress(parseInt(testId!));
-
                 const correctQuestions = updated.filter((question) => question.isRight == true);
 
-                const updatedProgress: TestType = {
-                    section_id: sectionProgress!.section_id,
-                    title: sectionProgress!.title,
-                    total: sectionProgress!.total,
-                    correct: "" + correctQuestions.length,
-                    completed: "" + updated.length,
-                };
+                if (testId !== "twenty-questions" && testId !== "top-difficult" && testId !== "exam") {
+                    const sectionProgress = getSectionProgress(parseInt(testId!));
 
-                updateSectionProgress(updatedProgress);
+                    if (sectionProgress) {
+                        const updatedProgress: TestType = {
+                            section_id: sectionProgress!.section_id,
+                            title: sectionProgress!.title,
+                            total: sectionProgress!.total,
+                            correct: "" + correctQuestions.length,
+                            completed: "" + updated.length,
+                        };
+
+                        updateSectionProgress(updatedProgress);
+                    }
+                }
             }
 
             return updated;
