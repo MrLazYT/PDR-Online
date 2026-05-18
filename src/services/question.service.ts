@@ -1,5 +1,5 @@
 import type { Question } from "../types/question.type";
-import type { TestType } from "../types/testData.type";
+// import type { TestType } from "../types/testData.type";
 
 export class QuestionService {
     private static path: string = "/data/tests";
