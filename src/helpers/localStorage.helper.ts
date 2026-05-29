@@ -8,9 +8,17 @@ export function getMistakes(): Mistake[] {
         return [];
     }
 
-    const parsed: Mistake[] = JSON.parse(data);
+    try {
+        const parsed = JSON.parse(data) as Mistake[];
 
-    return parsed;
+        return parsed;
+    } catch {
+        return [];
+    }
+}
+
+export function getMistakeBySectionId(sectionId: string): Mistake[] {
+    return getMistakes().filter((mistake) => mistake.section_id === sectionId);
 }
 
 export function setMistakesToLocalStorage(mistakes: Mistake[]): void {
@@ -22,17 +30,23 @@ export function setMistakesToLocalStorage(mistakes: Mistake[]): void {
 export function addMistakeToLocalStorage(mistake: Mistake): void {
     const mistakes: Mistake[] = getMistakes();
 
-    mistakes.push(mistake);
+    const isAlreadySaved = mistakes.some(
+        (curMistake) => curMistake.question_id == mistake.question_id && curMistake.section_id === mistake.section_id,
+    );
 
-    setMistakesToLocalStorage(mistakes);
+    if (isAlreadySaved) return;
+
+    setMistakesToLocalStorage([...mistakes, mistake]);
 }
 
-export function removeMistake(questionId: number): void {
+export function removeMistake(questionId: number, sectionId: string): void {
     const mistakes: Mistake[] = getMistakes();
 
-    mistakes.filter((mistake) => mistake.question_id !== questionId);
+    const updatedMistakes = mistakes.filter(
+        (mistake) => !(mistake.question_id == questionId && mistake.section_id === sectionId),
+    );
 
-    setMistakesToLocalStorage(mistakes);
+    setMistakesToLocalStorage(updatedMistakes);
 }
 
 export function removeMistakes(): void {
@@ -46,9 +60,13 @@ export function getSectionProgresses(): TestType[] {
         return [];
     }
 
-    const parsed: TestType[] = JSON.parse(data);
+    try {
+        const parsed = JSON.parse(data) as TestType[];
 
-    return parsed;
+        return parsed;
+    } catch {
+        return [];
+    }
 }
 
 export function getSectionProgress(sectionId: number): TestType | undefined {
@@ -70,7 +88,10 @@ export function updateSectionProgress(section: TestType): void {
 
     const sectionIndex: number = sections.findIndex((cur_section) => cur_section.section_id == section.section_id);
 
-    sections[sectionIndex] = section;
+    if (sectionIndex === -1) return;
 
-    setSectionProgress(sections);
+    const updatedSection = [...sections];
+    updatedSection[sectionIndex] = section;
+
+    setSectionProgress(updatedSection);
 }

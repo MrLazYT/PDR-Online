@@ -4,6 +4,7 @@ import type { MenuItem } from "../types/menuItem";
 import { useEffect, useState } from "react";
 import type Book from "../types/book.type";
 import { BookService } from "../services/book.service";
+import { convertBooksToMenuItems } from "../utils/convertBooksToMenuItems";
 
 export default function Books() {
     const navigate = useNavigate();
@@ -12,27 +13,6 @@ export default function Books() {
     const [topMenuItems, setTopMenuItems] = useState<MenuItem[]>([]);
 
     useEffect(() => {
-        function convertBookToMenuItem(book: Book): MenuItem {
-            return {
-                title: book.short_title,
-                link: book.is_available ? book.link : "",
-            };
-        }
-
-        function convertBooksToMenuItems(books: Book[]): MenuItem[] {
-            const menuItems: MenuItem[] = [];
-
-            books.forEach((book) => {
-                const menuItem = convertBookToMenuItem(book);
-
-                if (!menuItem.title) return;
-
-                menuItems.push(menuItem);
-            });
-
-            return menuItems;
-        }
-
         async function getBooks() {
             const data = await BookService.getBooks();
 

@@ -4,6 +4,7 @@ import type { Chapter } from "../types/chapter.type";
 import { BookService } from "../services/book.service";
 import type { MenuItem } from "../types/menuItem";
 import TopMenu from "../components/TopMenu";
+import { bookTypeToTitleMap } from "../constants/books/bookTypeToTitleMap";
 
 export default function Book() {
     const { bookType, chapterSlug, subsectionSlug } = useParams();
@@ -16,15 +17,7 @@ export default function Book() {
     const [openedExpertCommentId, setOpenedExpertCommentId] = useState<number>(-1);
     const navigate = useNavigate();
 
-    const bookTypeToTitleMap: Record<string, string> = {
-        pdr: "ПДР",
-        "pidruchnyk-z-vodinnia": "Водіння авто",
-        "pidruchnyk-po-vlashtuvanniu-avtomobilia": "Будова авто",
-        "medychna-dopomoha": "Меддопомога",
-        "vash-advokat": "Ваш адвокат",
-        "penalty-information": "Таблиця штрафів",
-        driving_license: "Загальна інформація",
-    };
+    const currentBookTitle = bookType ? (bookTypeToTitleMap[bookType!] ?? "Довідник") : "Довідник";
 
     const topMenuItems: MenuItem[] = [
         {
@@ -32,7 +25,7 @@ export default function Book() {
             link: "/dovidniki",
         },
         {
-            title: bookTypeToTitleMap[bookType!],
+            title: currentBookTitle,
             link: "",
         },
     ];

@@ -6,6 +6,7 @@ import Tests from "./pages/Tests";
 import Test from "./pages/Test";
 import Books from "./pages/Books";
 import Book from "./pages/Book";
+import Mistakes from "./pages/Mistakes";
 
 function App() {
     return (
@@ -16,7 +17,9 @@ function App() {
             <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/tests" element={<Tests />} />
-                <Route path="/test/:testId" element={<Test />} />
+                <Route path="/test/:testId" element={<Test mode="test" />} />
+                <Route path="/mistakes" element={<Mistakes />} />
+                <Route path="/mistakes/:testId" element={<Test mode="mistakes" />} />
                 <Route path="/dovidniki" element={<Books />} />
                 <Route path="/dovidniki/:bookType" element={<Book />} />
                 <Route path="/dovidniki/:bookType/:chapterSlug" element={<Book />} />
