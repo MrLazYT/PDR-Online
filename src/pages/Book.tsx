@@ -5,16 +5,21 @@ import { BookService } from "../services/book.service";
 import type { MenuItem } from "../types/menuItem";
 import TopMenu from "../components/TopMenu";
 import { bookTypeToTitleMap } from "../constants/books/bookTypeToTitleMap";
+import type { Book } from "../types/book.type";
+import getBookChapterFileId from "../utils/book/getBookChapterFileId";
+import fixBookHtml from "../utils/book/fixBookHtml";
 
 export default function Book() {
     const { bookType, chapterSlug, subsectionSlug } = useParams();
+    const [isChapterLoading, setIsChapterLoading] = useState<boolean>(false);
+    const [currentBook, setCurrentBook] = useState<Book>();
     const [chapters, setChapters] = useState<Chapter[]>([]);
-    const [chapterId, setChapterId] = useState<string>("");
-    const [subsectionId, setSubsectionId] = useState<string>("");
     const [activeSubsection, setActiveSubsection] = useState<string>("");
     const [currentChapter, setCurrentChapter] = useState<Chapter>();
     const [chapterContent, setChapterContent] = useState<any[]>([]);
     const [openedExpertCommentId, setOpenedExpertCommentId] = useState<number>(-1);
+    const chapterId = chapterSlug?.replace("rozdil-", "") ?? "";
+    const subsectionId = subsectionSlug?.replace("chastyna-", "") ?? "";
     const navigate = useNavigate();
 
     const currentBookTitle = bookType ? (bookTypeToTitleMap[bookType!] ?? "Довідник") : "Довідник";
@@ -31,33 +36,55 @@ export default function Book() {
     ];
 
     useEffect(() => {
+        async function getCurrentBook() {
+            if (!bookType) return;
+
+            const data = await BookService.getBooks();
+
+            const book = data.find((book: Book) => book.link === bookType);
+
+            setCurrentBook(book);
+        }
+
+        getCurrentBook();
+    }, [bookType]);
+
+    useEffect(() => {
         async function getChapters() {
-            const data = await BookService.getChapters(bookType!);
+            if (!bookType) return;
+
+            const data = await BookService.getChapters(bookType);
 
             setChapters(data);
         }
 
         getChapters();
-    }, []);
+    }, [bookType]);
 
     useEffect(() => {
-        if (!chapterSlug || chapters.length == 0) return;
+        if (chapters.length == 0) return;
 
-        const chapterId = chapterSlug.replace("rozdil-", "");
         const chapter = chapters.find((chapter) => chapter.id == chapterId);
 
-        setChapterId(chapterId!);
         setCurrentChapter(chapter);
         window.scrollTo({ top: 0, behavior: "instant" });
     }, [chapters, chapterSlug]);
 
     useEffect(() => {
-        if (!subsectionSlug) return;
+        if (!currentBook || !bookType || !chapterId || subsectionSlug) return;
+        if (currentBook.content_mode !== "subsection-file") return;
 
-        const subsectionId = subsectionSlug.replace("chastyna-", "");
+        const firstSubsection = chapters.find(
+            (chapter) =>
+                chapter.chapterId === chapterId && chapter.subsectionId !== "0" && chapter.subsectionId !== undefined,
+        );
 
-        setSubsectionId(subsectionId);
-    }, [subsectionSlug]);
+        if (!firstSubsection) return;
+
+        navigate(`/dovidniki/${bookType}/rozdil-${chapterId}/chastyna-${firstSubsection.subsectionId}`, {
+            replace: true,
+        });
+    }, [currentBook, bookType, chapterId, subsectionSlug, chapters, navigate]);
 
     useEffect(() => {
         if (chapterSlug) return;
@@ -69,42 +96,43 @@ export default function Book() {
     }, [bookType, chapters, chapterSlug]);
 
     useEffect(() => {
-        if (!bookType || !chapterId) return;
-
         async function getChapter() {
-            const data = await BookService.getChapter(bookType!, "" + chapterId);
+            if (!currentBook || !bookType || !chapterId) return;
 
-            if (!data) {
-                if (!chapterId.includes(".")) {
-                    navigate(`/dovidniki/${bookType}/rozdil-${chapterId}`);
-                } else {
-                    navigate(`/dovidniki/${bookType}`);
+            try {
+                setIsChapterLoading(true);
+                setChapterContent([]);
+
+                const fileId = getBookChapterFileId({
+                    chapterId,
+                    subsectionId,
+                    content_mode: currentBook.content_mode,
+                });
+
+                const data = await BookService.getChapter(bookType, fileId);
+
+                if (!data) {
+                    if (!chapterId.includes(".")) {
+                        navigate(`/dovidniki/${bookType}/rozdil-${chapterId}`);
+                    } else {
+                        navigate(`/dovidniki/${bookType}`);
+                    }
+
+                    return;
                 }
 
-                return;
+                const dataArr = Object.values(data) as string[];
+
+                const fixed = dataArr.map(fixBookHtml);
+
+                setChapterContent(fixed);
+            } finally {
+                setIsChapterLoading(false);
             }
-
-            const dataArr = Object.values(data) as string[];
-
-            const fixed = dataArr.map((html: string) =>
-                html
-                    .replaceAll('data-src="/storage', 'data-src="https://green-way.com.ua/storage')
-                    .replaceAll('src="/storage', 'src="https://green-way.com.ua/storage')
-                    .replaceAll("background: url('/plugins", "background: url('https://green-way.com.ua/plugins")
-                    .replaceAll("background:url('/plugins", "background: url('https://green-way.com.ua/plugins")
-                    .replace(/src="data:image\/gif;base64,[^"]*"/g, "")
-                    .replaceAll('data-src="https://', 'src="https://')
-                    .replaceAll(
-                        /<div id="video[^"]*" data-src="([^"]+)"><\/div>/g,
-                        '<iframe class="iframe-video" src="https://www.youtube.com/embed/$1?autoplay=1&mute=1&loop=1&playlist=$1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>',
-                    ),
-            );
-
-            setChapterContent(fixed);
         }
 
         getChapter();
-    }, [bookType, chapterId]);
+    }, [bookType, chapterId, currentBook, subsectionId]);
 
     useEffect(() => {
         if (!subsectionId || !chapterContent.length) return;
@@ -158,12 +186,6 @@ export default function Book() {
 
         return () => observer.disconnect();
     }, [chapterContent]);
-
-    useEffect(() => {
-        if (!chapterId) return;
-
-        setSubsectionId("1");
-    }, [chapterId]);
 
     useEffect(() => {
         const expertComments = document.getElementsByClassName("info-pdd expert");
@@ -225,19 +247,23 @@ export default function Book() {
                         {currentChapter?.chapterId}. {currentChapter?.title}
                     </h1>
 
-                    {chapterContent.map((html, index) => {
-                        const next = chapterContent[index + 1];
-                        const nextStartsWithH3 = /<div[^>]*class="text"[^>]*>\s*<h3/.test(next ?? "");
+                    {isChapterLoading ? (
+                        <div className="bookLoader">Завантаження розділу...</div>
+                    ) : (
+                        chapterContent.map((html, index) => {
+                            const next = chapterContent[index + 1];
+                            const nextStartsWithH3 = /<div[^>]*class="text"[^>]*>\s*<h3/.test(next ?? "");
 
-                        return (
-                            <div
-                                key={index}
-                                id={`subsection-${index + 1}`}
-                                className={`text${nextStartsWithH3 ? " section-break" : ""}`}
-                                dangerouslySetInnerHTML={{ __html: html }}
-                            />
-                        );
-                    })}
+                            return (
+                                <div
+                                    key={index}
+                                    id={`subsection-${index + 1}`}
+                                    className={`text${nextStartsWithH3 ? " section-break" : ""}`}
+                                    dangerouslySetInnerHTML={{ __html: html }}
+                                />
+                            );
+                        })
+                    )}
                 </div>
             </div>
         </div>

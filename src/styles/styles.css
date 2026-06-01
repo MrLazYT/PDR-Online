@@ -1125,19 +1125,38 @@ header {
 }
 
 .chapter-content #adv-sheme {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 30px;
     width: 100% !important;
     font-size: 12px;
     line-height: 16px;
 }
 
-.chapter-content #wrap {
+.chapter-content #adv-sheme * {
+    box-sizing: content-box;
+}
+
+.chapter-content #adv-sheme:has([data-onclick*="dtp_2"]) #wrap {
+    min-height: 1320px;
+}
+
+.chapter-content #adv-sheme:has([data-onclick*="dtp_3"]) #wrap {
+    min-height: 1550px;
+}
+
+.chapter-content #adv-sheme #wrap {
     position: relative;
     width: 735px;
+    min-height: 1320px;
     margin: 0 auto !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
 }
 
 .chapter-content .adv-text-1 {
-    margin-top: 860px;
+    margin-top: -500px;
 }
 
 table {
@@ -1389,4 +1408,8 @@ td {
 .circle.red {
     background-color: #e4615d;
     border-color: #e4615d;
+}
+
+#adv-sheme-mob {
+    display: none;
 }

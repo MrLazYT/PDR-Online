@@ -4,48 +4,55 @@
         "title": "ПДР 2026 України з ілюстраціями, коментарями та відео",
         "short_title": "ПДР",
         "link": "pdr",
-        "is_available": true
+        "is_available": true,
+        "content_mode": "chapter-file"
     },
     {
         "title": "Підручник з водіння автомобіля",
         "short_title": "Водіння авто",
         "image": "../assets/books/books-icon-2.svg",
         "link": "pidruchnyk-z-vodinnia",
-        "is_available": true
+        "is_available": true,
+        "content_mode": "subsection-file"
     },
     {
         "title": "Підручник з будови автомобіля",
         "short_title": "Будова авто",
         "image": "../assets/books/books-icon-3.svg",
         "link": "pidruchnyk-po-vlashtuvanniu-avtomobilia",
-        "is_available": false
+        "is_available": false,
+        "content_mode": "subsection-file"
     },
     {
         "title": "Перша медична допомога при ДТП",
         "short_title": "Меддопомога",
         "image": "../assets/books/books-icon-4.svg",
         "link": "medychna-dopomoha",
-        "is_available": true
+        "is_available": true,
+        "content_mode": "chapter-file"
     },
     {
         "title": "Поради адвоката при ДТП",
         "short_title": "Ваш адвокат",
         "image": "../assets/books/books-icon-5.svg",
         "link": "vash-advokat",
-        "is_available": false
+        "is_available": false,
+        "content_mode": "chapter-file"
     },
     {
         "title": "Штрафи та інші санкції для водіїв і пішоходів (КУпАП)",
         "short_title": "Таблиця штрафів",
         "image": "../assets/books/books-icon-6.svg",
         "link": "penalty-information",
-        "is_available": false
+        "is_available": false,
+        "content_mode": "chapter-file"
     },
     {
         "title": "Інформація про отримання посвідчення водія",
         "short_title": "",
         "image": "../assets/books/books-icon-7.svg",
         "link": "driving_license",
-        "is_available": false
+        "is_available": false,
+        "content_mode": "chapter-file"
     }
 ]
