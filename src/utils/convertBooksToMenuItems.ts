@@ -1,4 +1,4 @@
-import type Book from "../types/book.type";
+import type { Book } from "../types/book.type";
 import type { MenuItem } from "../types/menuItem";
 
 function convertBookToMenuItem(book: Book): MenuItem {

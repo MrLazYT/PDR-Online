@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import TopMenu from "../components/TopMenu";
 import type { MenuItem } from "../types/menuItem";
 import { useEffect, useState } from "react";
-import type Book from "../types/book.type";
+import type { Book } from "../types/book.type";
 import { BookService } from "../services/book.service";
 import { convertBooksToMenuItems } from "../utils/convertBooksToMenuItems";
 
